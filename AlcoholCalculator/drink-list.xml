@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<drinks>
+	<drink>
+		<drink-name>cat</drink-name>
+		<perc>60</perc>
+		<drink-comment>cats</drink-comment>
+	</drink>
+	<drink>
+	<drink-name>dog</drink-name>
+		<perc>40</perc>
+		<drink-comment>canine</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Qingdao Beer</drink-name>
+		<perc>5</perc>
+		<drink-comment>Nice beer from China</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>XXXX</drink-name>
+		<perc>3</perc>
+		<drink-comment>...</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Bundaberg Rum</drink-name>
+		<perc>40</perc>
+		<drink-comment>Rum from Bunderberg</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Whiskey</drink-name>
+		<perc>40</perc>
+		<drink-comment> </drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+	<drink>
+		<drink-name>Scotch</drink-name>
+		<perc>40</perc>
+		<drink-comment>Nice drink, good on the rocks</drink-comment>
+	</drink>
+</drinks>
