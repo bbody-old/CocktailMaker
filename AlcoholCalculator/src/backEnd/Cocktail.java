@@ -3,6 +3,7 @@ package backEnd;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
+import java.util.ResourceBundle;
 
 /**
  * Class for a Cocktail drink. Essentially adding extra context specific
@@ -155,15 +156,15 @@ public class Cocktail {
 	 * Its name, ingredients. any comments and Total Percent.
 	 * @return String	String representing a cocktail
 	 */
-	public String toGuiStringPreview(){
+	public String toGuiStringPreview(ResourceBundle resourceBundle){
 		// TODO add more html tags to make it look more readable
 		DecimalFormat df = new DecimalFormat(Const.numberFormat);
 		String str = Const.htmlOpen + 
-				Const.cocktailDefaultNameLabel;
+				resourceBundle.getString("nameLabel");
 		
 		str += cocktailName + Const.htmlBR;
 		
-		str += Const.cocktailDefaultConsistsLabel;
+		str += resourceBundle.getString("consists");
 		
 		str += Const.ulOpen;
 		for (int i = 0; i < drinkList.size(); i++){
@@ -178,7 +179,7 @@ public class Cocktail {
 		}*/
 		
 		str += Const.htmlBR +  
-				Const.cocktailDefaultTotalPercentage + 
+				resourceBundle.getString("totalPerc") + 
 				df.format(getTotalPercentage()).toString() + 
 				Const.htmlBR + Const.htmlClose;
 		
@@ -189,14 +190,14 @@ public class Cocktail {
 	 * 
 	 * @return
 	 */
-	public String toGuiStringViewNoHTML(){
+	public String toGuiStringViewNoHTML(ResourceBundle resourceBundle){
 		// TODO add more html tags to make it look more readable
 		String str = //Const.htmlOpen + 
-				Const.cocktailDefaultNameLabel;
+				resourceBundle.getString("nameLabel");
 		
 		str += cocktailName + Const.newLine;// + Const.htmlBR;
 		
-		str += Const.cocktailDefaultConsistsLabel + Const.newLine;
+		str += resourceBundle.getString("consists") + Const.newLine;
 		
 		//str += Const.ulOpen;
 		DecimalFormat df = new DecimalFormat(Const.numberFormat);
@@ -232,14 +233,14 @@ public class Cocktail {
 	 * 
 	 * @return
 	 */
-	public String toGuiStringView(){
+	public String toGuiStringView(ResourceBundle resourceBundle){
 		// TODO add more html tags to make it look more readable
 		String str = Const.htmlOpen + 
-				Const.cocktailDefaultNameLabel;
+				resourceBundle.getString("nameLabel");
 		
 		str += cocktailName + Const.htmlBR;
 		
-		str += Const.cocktailDefaultConsistsLabel;
+		str += resourceBundle.getString("consists");
 		
 		str += Const.ulOpen;
 		DecimalFormat df = new DecimalFormat(Const.numberFormat);
@@ -259,7 +260,7 @@ public class Cocktail {
 		}
 		
 		str += Const.htmlBR +  
-				Const.cocktailDefaultTotalPercentage + 
+				resourceBundle.getString("totalPerc") + 
 				df.format(getTotalPercentage()).toString() + 
 				Const.htmlBR + Const.htmlClose;
 		

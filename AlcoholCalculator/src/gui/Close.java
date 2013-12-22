@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,9 +24,9 @@ public class Close extends JDialog {
 	/**
 	 * Dialog box for when the program is close for saving the program.
 	 */
-	public Close(final LoadCocktails lc) {
+	public Close(ResourceBundle resourceBundle, final LoadCocktails lc) {
 		// Set details
-		setTitle(Const_En.closeDialogName);
+		setTitle(resourceBundle.getString("closeDialog"));
 		setSize(Const.closeWidth, Const.closeHeight);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -47,7 +48,7 @@ public class Close extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			//
-			JLabel warningText = new JLabel(Const_En.closeText);
+			JLabel warningText = new JLabel(resourceBundle.getString("closeText"));
 			contentPanel.add(warningText);
 		}
 		
@@ -58,8 +59,8 @@ public class Close extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				// Set Save button
-				JButton saveButton = new JButton(Const_En.saveButton);
-				saveButton.setActionCommand(Const_En.okButton);
+				JButton saveButton = new JButton(resourceBundle.getString("saveButton"));
+				saveButton.setActionCommand(resourceBundle.getString("okButton"));
 				saveButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -75,8 +76,8 @@ public class Close extends JDialog {
 			}
 			{
 				// Set Don't Save Button
-				JButton cancelButton = new JButton(Const_En.dsaveButton);
-				cancelButton.setActionCommand(Const_En.cancelButton);
+				JButton cancelButton = new JButton(resourceBundle.getString("dsaveButton"));
+				cancelButton.setActionCommand(resourceBundle.getString("cancelButton"));
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {

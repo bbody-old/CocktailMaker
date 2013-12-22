@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -25,17 +26,19 @@ public class NewCocktail extends JFrame {
 
 	private JPanel contentPane;
 	private LoadDrinks ld;
+	private ResourceBundle resourceBundle;
 	/**
 	 * Create the frame.
 	 */
-	public NewCocktail(LoadDrinks ldr, final LoadCocktails lc, final JList mainList, final JEditorPane preview) {
+	public NewCocktail(ResourceBundle rb, LoadDrinks ldr, final LoadCocktails lc, final JList mainList, final JEditorPane preview) {
+		this.resourceBundle = rb;
 		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		final ArrayList<Drink> selectedDrinks = new ArrayList<Drink>();
 		final ArrayList<String> selectedDrinksNames = new ArrayList<String>();
 		this.ld = ldr;
 		final JList selectionList =  new JList();
 		final JScrollPane list_1 = new JScrollPane(selectionList);
-		setTitle("New Cocktail");
+		setTitle(resourceBundle.getString("newCtail"));
 		setSize(Const.width, Const.height);
 		//setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -143,14 +146,14 @@ public class NewCocktail extends JFrame {
 		gbc_panel_1.gridy = 3;
 		contentPane.add(panel_1, gbc_panel_1);
 		
-		JButton btnNewButton = new JButton("Next");
+		JButton btnNewButton = new JButton(resourceBundle.getString("next"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Cocktail c = new Cocktail();
 				for (int i = 0; i < selectedDrinks.size(); i++){
 					c.addDrink(10.0, selectedDrinks.get(i));
 				}
-				NewCocktailScreen2 nc = new NewCocktailScreen2(ld, c, preview, mainList, lc);
+				NewCocktailScreen2 nc = new NewCocktailScreen2(resourceBundle, ld, c, preview, mainList, lc);
 				//setVisible(false);
 				nc.setVisible(true);
 				setVisible(false);
@@ -158,7 +161,7 @@ public class NewCocktail extends JFrame {
 		});
 		panel_1.add(btnNewButton);
 		
-		JButton btnClose = new JButton("Close");
+		JButton btnClose = new JButton(resourceBundle.getString("close"));
 		btnClose.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)

@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,7 +33,7 @@ public class DrinkSelector extends JDialog {
 	JSpinner spinner;
 	SpinnerNumberModel volume;
 	JPanel tpanel;
-	public DrinkSelector(JPanel panel, final LoadDrinks ld, final Cocktail c) {
+	public DrinkSelector(ResourceBundle resourceBundle, JPanel panel, final LoadDrinks ld, final Cocktail c) {
 		this.tpanel = panel;
 		//setBounds(100, 100, 450, 300);
 		list = new JComboBox();
@@ -43,8 +44,8 @@ public class DrinkSelector extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton(Const_En.okButton);
-				okButton.setActionCommand(Const_En.okButton);
+				JButton okButton = new JButton(resourceBundle.getString("okButton"));
+				okButton.setActionCommand(resourceBundle.getString("okButton"));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int selected = list.getSelectedIndex();
@@ -62,13 +63,13 @@ public class DrinkSelector extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton(Const_En.cancelButton);
+				JButton cancelButton = new JButton(resourceBundle.getString("cancelButton"));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
 					}
 				});
-				cancelButton.setActionCommand(Const_En.cancelButton);
+				cancelButton.setActionCommand(resourceBundle.getString("cancelButton"));
 				buttonPane.add(cancelButton);
 			}
 		}
@@ -81,7 +82,7 @@ public class DrinkSelector extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblWhatDrinkWould = new JLabel(Const_En.selectQuestion);
+			JLabel lblWhatDrinkWould = new JLabel(resourceBundle.getString("selectQuestion"));
 			GridBagConstraints gbc_lblWhatDrinkWould = new GridBagConstraints();
 			gbc_lblWhatDrinkWould.gridwidth = 4;
 			gbc_lblWhatDrinkWould.insets = new Insets(0, 0, 5, 0);

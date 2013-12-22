@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,7 +21,7 @@ public class View extends JDialog {
 	/**
 	 * Creates a dialog to show the selected Cocktail's details
 	 */
-	public View(String name, String details, Image iconImage) {
+	public View(ResourceBundle resourceBundle, String name, String details, Image iconImage) {
 		// Set name
 		setName(name);
 		
@@ -31,7 +32,7 @@ public class View extends JDialog {
 		setSize(Const.viewWidth, Const.viewHeight);
 		
 		// Set standard title
-		setTitle(Const_En.name + Const.dash + name);
+		setTitle(resourceBundle.getString("Name") + Const.dash + name);
 		
 		// Set up layout
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -66,7 +67,7 @@ public class View extends JDialog {
 		textViewScrollPane.setViewportView(viewTextPanel);
 		
 		// Ok button -> Exit program
-		JButton okButton = new JButton(Const_En.okButton);
+		JButton okButton = new JButton(resourceBundle.getString("okButton"));
 		// Set up position
 		GridBagConstraints okButtonGrid = new GridBagConstraints();
 		okButtonGrid.gridx = 0;

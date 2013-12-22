@@ -10,6 +10,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
@@ -18,6 +20,9 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -39,12 +44,14 @@ public class MainWindow {
 	private LoadDrinks loadedDrinks;
 	private String iconFileName;
 	private Image iconImage;
+	private ResourceBundle resourceBundle;
 
-	public MainWindow(LoadCocktails lc, LoadDrinks ld, String iconFileName) {
+	public MainWindow(LoadCocktails lc, LoadDrinks ld, String iconFileName, ResourceBundle bundle) {
 		// Set Variables
 		this.loadedCocktails = lc;
 		this.loadedDrinks = ld;
 		this.iconFileName = iconFileName;
+		this.resourceBundle = bundle;
 		
 		// Initialize GUI
 		initialize();
@@ -55,7 +62,7 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		// Initialize Frame with name and version
-		setFrame(new JFrame(Const_En.name + Const.space + Const_En.version));
+		setFrame(new JFrame(this.resourceBundle.getString("Name") + Const.space + Const.version));
 		// Set frame size
 		getFrame().setSize(Const.width, Const.height);
 		
@@ -69,12 +76,7 @@ public class MainWindow {
 		// Override it with a set of actions before it closes
 		getFrame().addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                // Open Close Dialog
-                Close c = new Close(loadedCocktails);
-                c.setVisible(true);
-                
-                // Set this frame invisible
-                getFrame().setVisible(false);
+                closeDialog();
             }
         });
 		
@@ -94,7 +96,7 @@ public class MainWindow {
 		
 		// Set up editor pane
 		final JEditorPane previewPane = new JEditorPane(Const.epMode, 
-				Const_En.preview);
+				resourceBundle.getString("preview"));
 		// Do not allow editing
 		previewPane.setEditable(false);
 		// Set colour to make it look like a lable
@@ -110,7 +112,7 @@ public class MainWindow {
 		        	// Check something is selected
 					if (cocktailList.getSelectedIndex() >= 0){
 						// Change preview window into new drink
-			        	previewPane.setText(loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).toGuiStringPreview());
+			        	previewPane.setText(loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).toGuiStringPreview(resourceBundle));
 					}
 					// Set size so it will wrap text
 			        previewPane.setPreferredSize(new Dimension(1, 1));
@@ -144,7 +146,7 @@ public class MainWindow {
 		//lblP.setVerticalAlignment(SwingConstants.TOP);
 		previewPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		previewPane.setCaretPosition(0);
-		previewPane.setText(Const_En.preview);
+		previewPane.setText(resourceBundle.getString("preview"));
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -156,31 +158,31 @@ public class MainWindow {
 		getFrame().getContentPane().add(panel, gbc_panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnAdd = new JButton(Const_En.add);
+		JButton btnAdd = new JButton(resourceBundle.getString("add"));
 		panel.add(btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)
             {
-            	NewCocktail frame = new NewCocktail(loadedDrinks, loadedCocktails, cocktailList, previewPane);
+            	NewCocktail frame = new NewCocktail(resourceBundle, loadedDrinks, loadedCocktails, cocktailList, previewPane);
 				frame.setVisible(true);
             }
         });   
 		
-		JButton btnView = new JButton(Const_En.view);
+		JButton btnView = new JButton(resourceBundle.getString("view"));
 		panel.add(btnView);
 		btnView.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)
             {
             	if (cocktailList.getSelectedIndex() >= 0){
-            		View v = new View(loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).getCocktailName(), loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).toGuiStringView(), iconImage);
+            		View v = new View(resourceBundle, loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).getCocktailName(), loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).toGuiStringView(resourceBundle), iconImage);
             		v.setVisible(true);
             	}
             }
         }); 
 		
-		JButton btnEdit = new JButton(Const_En.edit);
+		JButton btnEdit = new JButton(resourceBundle.getString("edit"));
 		panel.add(btnEdit);
 		btnEdit.addActionListener(new ActionListener() {
 	    	 
@@ -189,7 +191,7 @@ public class MainWindow {
             	int selected = cocktailList.getSelectedIndex();
             	if (selected >= 0){
             		Cocktail cocktail = loadedCocktails.getCocktail(selected);
-	            	EditCocktail frame = new EditCocktail(loadedDrinks, cocktail, previewPane, selected, cocktailList, loadedCocktails, iconImage);
+	            	EditCocktail frame = new EditCocktail(resourceBundle, loadedDrinks, cocktail, previewPane, selected, cocktailList, loadedCocktails, iconImage);
 					frame.setVisible(true);
 					
 					/*
@@ -206,8 +208,42 @@ public class MainWindow {
             }
         });
 		
-		JButton btnRemove = new JButton(Const_En.remove);
+		JButton btnRemove = new JButton(resourceBundle.getString("remove"));
 		panel.add(btnRemove);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu(resourceBundle.getString("file"));
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmPreferences = new JMenuItem(resourceBundle.getString("preferences"));
+		mntmPreferences.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				//gp.
+			}
+		});
+		mnFile.add(mntmPreferences);
+		
+		JMenuItem mntmAbout = new JMenuItem(resourceBundle.getString("about"));
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("About");
+			}
+		});
+		mnFile.add(mntmAbout);
+		
+		JMenuItem mntmExit = new JMenuItem(resourceBundle.getString("exit"));
+		mntmExit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				closeDialog();
+				
+			}});
+		mnFile.add(mntmExit);
 		
 		btnRemove.addActionListener(new ActionListener() {
 	    	 
@@ -217,10 +253,10 @@ public class MainWindow {
             	if (selected.length == 1){
 	            	String name = loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).getCocktailName();
 	            	
-	            	String[] options = {Const_En.delete_button_delete, Const_En.delete_button_cancel};
+	            	String[] options = {resourceBundle.getString("deleteButton"), resourceBundle.getString("cancelButton")};
 	            	int n = JOptionPane.showOptionDialog(getFrame(),
-	            			Const_En.delete_dialog_1 + name + Const_En.delete_dialog_2,
-	            			Const_En.delete,
+	            			resourceBundle.getString("delete_dialog_1") + name + resourceBundle.getString("delete_dialog_2"),
+	            			resourceBundle.getString("delete"),
 	            			JOptionPane.YES_NO_CANCEL_OPTION,
 	            			JOptionPane.QUESTION_MESSAGE,
 	            			null,
@@ -253,10 +289,10 @@ public class MainWindow {
             		*/
             		String name = "these items";
 	            	
-	            	String[] options = {Const_En.delete_button_delete, Const_En.delete_button_cancel};
+	            	String[] options = {resourceBundle.getString("deleteButton"), resourceBundle.getString("cancelButton")};
 	            	int n = JOptionPane.showOptionDialog(getFrame(),
-	            			Const_En.delete_dialog_1 + name + Const_En.delete_dialog_2,
-	            			Const_En.delete,
+	            			resourceBundle.getString("delete_dialog_1") + name + resourceBundle.getString("delete_dialog_2"),
+	            			resourceBundle.getString("delete"),
 	            			JOptionPane.YES_NO_CANCEL_OPTION,
 	            			JOptionPane.QUESTION_MESSAGE,
 	            			null,
@@ -289,6 +325,15 @@ public class MainWindow {
 
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
+	}
+
+	private void closeDialog() {
+		// Open Close Dialog
+		Close c = new Close(resourceBundle, loadedCocktails);
+		c.setVisible(true);
+		
+		// Set this frame invisible
+		getFrame().setVisible(false);
 	}
 
 }

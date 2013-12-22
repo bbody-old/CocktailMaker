@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -38,18 +39,18 @@ public class EditCocktail extends JFrame {
 	private Cocktail cocktail;
 	private final Cocktail originalCocktail;
 	private JTextArea textPane;
-
+	private ResourceBundle resourceBundle;
 	
 	/**
 	 * Create the frame. 852
 	 */
-	public EditCocktail(final LoadDrinks loadDrinks, final Cocktail cocktail, final JEditorPane lblP, final int selected, final JList jList, final LoadCocktails lc, Image iconImage) {
+	public EditCocktail(ResourceBundle resourceBundle, final LoadDrinks loadDrinks, final Cocktail cocktail, final JEditorPane lblP, final int selected, final JList jList, final LoadCocktails lc, Image iconImage) {
 		this.loadDrinks = loadDrinks;
 		this.cocktail = cocktail;
 		this.originalCocktail = new Cocktail();
 		this.originalCocktail.copy(this.cocktail);
 		this.ecp = new EditCocktailPanel(this.loadDrinks, cocktail);
-
+		this.resourceBundle = resourceBundle;
 
 		
 		setupUI(iconImage);
@@ -62,7 +63,7 @@ public class EditCocktail extends JFrame {
 	}
 	
 	private void setupUI(Image iconImage){
-		setTitle(Messages.getString("EditCocktail.EditButton"));
+		setTitle(resourceBundle.getString("edit"));
 		setIconImage(iconImage);
 		setSize(Const.width, Const.height);
 	}
@@ -76,8 +77,8 @@ public class EditCocktail extends JFrame {
 		gbc_panel.gridy = 0;
 		contentPane.add(panel, gbc_panel);
 		
-		JLabel lblNewLabel = new JLabel(Messages.getString("EditCocktail.NameLabel")); //$NON-NLS-1$
-		lblNewLabel.setFont(new Font(Messages.getString("Global.Font"), Font.PLAIN, 18)); //$NON-NLS-1$
+		JLabel lblNewLabel = new JLabel(resourceBundle.getString("nameLabel")); //$NON-NLS-1$
+		lblNewLabel.setFont(new Font("Tacoma", Font.PLAIN, 18)); //$NON-NLS-1$
 		panel.add(lblNewLabel);
 		
 		textField = new JTextField(cocktail.getCocktailName());
@@ -141,7 +142,7 @@ public class EditCocktail extends JFrame {
 		contentPane.add(panel_2, gbc_panel_2);
 		
 		
-		JButton btnNewButton = new JButton(Messages.getString("EditCocktail.SaveCloseButton")); //$NON-NLS-1$
+		JButton btnNewButton = new JButton(resourceBundle.getString("saveCloseButton")); //$NON-NLS-1$
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cocktail.setCocktailName(textField.getText());
@@ -157,13 +158,13 @@ public class EditCocktail extends JFrame {
 				lc.setCocktail(selected, cocktail);
 				jList.setListData(lc.getStrings());
 				jList.setSelectedIndex(selected);
-		        	lblP.setText(cocktail.toGuiStringPreview());
+		        	lblP.setText(cocktail.toGuiStringPreview(resourceBundle));
 		        	jList.setSelectedIndex(selected);
 			}
 		});
 		panel_2.add(btnNewButton);
 		
-		JButton btnCloseWithoutSave = new JButton(Messages.getString("EditCocktail.CloseNoSave")); //$NON-NLS-1$
+		JButton btnCloseWithoutSave = new JButton(resourceBundle.getString("closeNoSave")); //$NON-NLS-1$
 		btnCloseWithoutSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//cocktail.copy(originalCocktail);
@@ -188,7 +189,7 @@ public class EditCocktail extends JFrame {
 		contentPane.add(panel_1, gbc_panel_1);
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
-		JButton btnAdd = new JButton(Messages.getString("EditCocktail.AddButton")); //$NON-NLS-1$
+		JButton btnAdd = new JButton(resourceBundle.getString("add")); //$NON-NLS-1$
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/*for (int i = 0; i < c.getSize(); i++){
@@ -197,7 +198,7 @@ public class EditCocktail extends JFrame {
 					panel_1.remove(0);
 					panel_1.remove(0);
 				}*/				
-				final DrinkSelector ds = new DrinkSelector(ecp, loadDrinks, cocktail);
+				final DrinkSelector ds = new DrinkSelector(resourceBundle, ecp, loadDrinks, cocktail);
 				ds.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		        
 				// Override it with a set of actions before it closes
@@ -216,7 +217,7 @@ public class EditCocktail extends JFrame {
 		});
 		panel_1.add(btnAdd);
 		
-		JButton btnRemove = new JButton(Messages.getString("EditCocktail.RemoveButton")); //$NON-NLS-1$
+		JButton btnRemove = new JButton(resourceBundle.getString("remove")); //$NON-NLS-1$
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ecp.removeSelected();
@@ -233,7 +234,7 @@ public class EditCocktail extends JFrame {
 			}
 		});
 		
-		JButton btnReset = new JButton(Messages.getString("EditCocktail.ResetButton")); //$NON-NLS-1$
+		JButton btnReset = new JButton(resourceBundle.getString("reset")); //$NON-NLS-1$
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Replace panel with original cocktail
@@ -250,7 +251,7 @@ public class EditCocktail extends JFrame {
 		});
 		
 		// Remove All Button
-		JButton btnRemoveAll = new JButton(Messages.getString("EditCocktail.RemoveAllButton")); //$NON-NLS-1$
+		JButton btnRemoveAll = new JButton(resourceBundle.getString("removeAll")); //$NON-NLS-1$
 		btnRemoveAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Remove all the drinks and replace panel

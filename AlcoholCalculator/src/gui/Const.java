@@ -18,6 +18,6 @@ public class Const {
 	// Editor Pane
 	public static String epMode = "text/html";
 	public static String epColour = "Label.background";
-	
-	public static String language = "Zh";
+
+	public static String version = "v0.0.2";
 }

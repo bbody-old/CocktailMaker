@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -77,7 +78,7 @@ public class NewCocktailScreen2 extends JFrame {
 		
 		for (int i = 0; i < c.getSize(); i++){
 			Drink d = c.getDrink(i);
-			JLabel lblDrink = new JLabel("Drink " + i);
+			JLabel lblDrink = new JLabel(resourceBundle.getString("drink") + Const.space + i);
 			GridBagConstraints gbc_lblDrink = new GridBagConstraints();
 			//gbc_lblDrink.insets = new Insets(0, 0, 0, 5);
 			gbc_lblDrink.gridx = 0;
@@ -117,13 +118,15 @@ public class NewCocktailScreen2 extends JFrame {
 	SpinnerNumberModel[] volumeSpinners;
 	JComboBox [] comboBox;
 	JButton remove [];
+	ResourceBundle resourceBundle;
 	/**
 	 * Create the frame.
 	 */
-	public NewCocktailScreen2(final LoadDrinks ld, final Cocktail c, final JEditorPane lblP, final JList jList, final LoadCocktails lc) {
+	public NewCocktailScreen2(ResourceBundle rb, final LoadDrinks ld, final Cocktail c, final JEditorPane lblP, final JList jList, final LoadCocktails lc) {
 		this.ld = ld;
+		this.resourceBundle = rb;
 		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
-		setTitle("Edit");
+		setTitle(resourceBundle.getString("edit"));
 		//final JPanel panel_1;
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(Const.width, Const.height);
@@ -162,7 +165,7 @@ public class NewCocktailScreen2 extends JFrame {
 		gbc_panel.gridy = 0;
 		contentPane.add(panel, gbc_panel);
 		
-		JLabel lblNewLabel = new JLabel("Name");
+		JLabel lblNewLabel = new JLabel(resourceBundle.getString("nameLabel"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel.add(lblNewLabel);
 		
@@ -178,9 +181,6 @@ public class NewCocktailScreen2 extends JFrame {
 			final int index = i;
 			remove[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//contentPane.remove(jsp);
-					//panel_1.removeAll();
-					System.out.println("HAPPEN");
 					c.removeDrink(index);
 					panel_1 = listDraw(c);
 					panel_1.repaint();
@@ -213,7 +213,7 @@ public class NewCocktailScreen2 extends JFrame {
 		gbc_panel_2.gridy = 3;
 		contentPane.add(panel_2, gbc_panel_2);
 		
-		JButton btnNewButton = new JButton("Save and Close");
+		JButton btnNewButton = new JButton(resourceBundle.getString("saveCloseButton"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c.setCocktailName(textField.getText());
@@ -229,7 +229,7 @@ public class NewCocktailScreen2 extends JFrame {
 				jList.setListData(lc.getStrings());
 				//jList.setSelectedIndex(selected);
 				//if (selected >= 0){
-		        	lblP.setText(c.toGuiStringPreview());
+		        	lblP.setText(c.toGuiStringPreview(resourceBundle));
 		        	//System.out.println(c.toGuiStringPreview());
 		        	//lblP.repaint();
 		        	jList.setSelectedIndex(lc.size()-1);
@@ -237,7 +237,7 @@ public class NewCocktailScreen2 extends JFrame {
 		});
 		panel_2.add(btnNewButton);
 		
-		JButton btnCloseWithoutSave = new JButton("Close without Save");
+		JButton btnCloseWithoutSave = new JButton(resourceBundle.getString("closeNoSave"));
 		btnCloseWithoutSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
