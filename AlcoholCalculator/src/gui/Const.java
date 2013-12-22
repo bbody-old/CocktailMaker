@@ -1,6 +1,6 @@
 package gui;
 
-public abstract class Const {
+public class Const {
 	public static int width = 640;
 	public static int height = 480;
 	public static String space = " ";
@@ -18,4 +18,6 @@ public abstract class Const {
 	// Editor Pane
 	public static String epMode = "text/html";
 	public static String epColour = "Label.background";
+	
+	public static String language = "Zh";
 }

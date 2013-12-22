@@ -20,28 +20,28 @@ import fileIO.LoadDrinks;
 
 public class EditCocktailPanel extends JPanel {
 	LoadDrinks ld;
-	Cocktail cocktail;
+	//Cocktail cocktail;
 	SpinnerNumberModel[] volumeSpinners;
 	JComboBox[] comboBox;
 	public GridBagConstraints gbc_lblDrink;
 	JCheckBox [] removes;
 	JPanel panel;
 	GridBagLayout gb2_contentPane;
-	final Cocktail oc;
+	//final Cocktail oc;
 	/**
 	 * Create the panel.
 	 */
 	public EditCocktailPanel(final LoadDrinks ld, final Cocktail c) {
 		//System.out.println("Unique");
-		oc = new Cocktail();
-		System.out.println("Before:" + oc.getSize());
-		oc.copy(c);
-		System.out.println("After:" + oc.getSize());
+		//oc = new Cocktail();
+		//System.out.println("Before:" + oc.getSize());
+		//oc.copy(c);
+		//System.out.println("After:" + oc.getSize());
 		this.ld = ld;
 		init(c);
 	}
 	
-	void init(final Cocktail c){
+	void init(Cocktail c){
 		int drinksWidth = (getWidth()/8*6);
 		int rows [] = new int[c.getSize()];
 		removes = new JCheckBox [c.getSize()];
@@ -57,7 +57,7 @@ public class EditCocktailPanel extends JPanel {
 			});
 		}
 		panel = this;
-		this.cocktail = c;
+		//this.cocktail = c;
 		gb2_contentPane = new GridBagLayout();
 		gb2_contentPane.columnWidths = new int[]{drinksWidth/8*2, drinksWidth/8*3, drinksWidth/8*3};
 
@@ -67,17 +67,17 @@ public class EditCocktailPanel extends JPanel {
 		
 		setLayout(gb2_contentPane);
 		// Initialise variables
-		comboBox = new JComboBox[cocktail.getSize()];
+		comboBox = new JComboBox[c.getSize()];
 		//removes = new JButton[c.getSize()];
-		volumeSpinners = new SpinnerNumberModel[cocktail.getSize()];
+		volumeSpinners = new SpinnerNumberModel[c.getSize()];
 		gbc_lblDrink = new GridBagConstraints();
 		
-		System.out.println(cocktail.getSize());
+		System.out.println(c.getSize());
 		
-		for (int i = 0; i < cocktail.getSize(); i++){
+		for (int i = 0; i < c.getSize(); i++){
 			System.out.println("OK");
 			// Get drink for that row
-			Drink d = cocktail.getDrink(i);
+			Drink d = c.getDrink(i);
 			
 			// Label Drink by number
 			JLabel lblDrink = new JLabel("Drink " + i);
@@ -104,7 +104,7 @@ public class EditCocktailPanel extends JPanel {
 			
 			add(comboBox[i], gbc_comboBox);
 			
-			volumeSpinners[i] = new SpinnerNumberModel(cocktail.getVolume(i), 0.0, 1000.0, 10.0);
+			volumeSpinners[i] = new SpinnerNumberModel(c.getVolume(i), 0.0, 1000.0, 10.0);
 			
 			JSpinner spinner = new JSpinner(volumeSpinners[i]);
 			GridBagConstraints gbc_spinner = new GridBagConstraints();
@@ -118,13 +118,27 @@ public class EditCocktailPanel extends JPanel {
 		}
 
 	}
-	public void removeAllDrinks(){
-		for (int i = cocktail.getSize() - 1; i >= 0; i--){
-			cocktail.removeDrink(i);
+	
+	public boolean [] getSelected(){
+		boolean [] selected = new boolean[removes.length];
+		for (int i = 0; i < selected.length; i++){
+			if (removes[i].isSelected()){
+				selected[i] = true;
+			} else {
+				selected[i] = false;
+			}
 		}
-		init(cocktail);
+		return selected;
 	}
 	
+	/*
+	public void removeAllDrinks(){
+		for (int i = c.getSize() - 1; i >= 0; i--){
+			c.removeDrink(i);
+		}
+		init(c);
+	}*/
+	/*
 	public void removeSelected(){
 		for (int i = cocktail.getSize() - 1; i >= 0; i--){
 			if (removes[i].isSelected()){
@@ -133,32 +147,45 @@ public class EditCocktailPanel extends JPanel {
 			
 		}
 		init(cocktail);
-	}
-	
+	}*/
+	/*
 	public void defaultDrinks(){
 		System.out.println("L:" + oc.getSize());
 		//cocktail.copy(oc);
 		//replace(oc);
-		this.cocktail = oc;
-		init(cocktail);
+		//this.cocktail.copy(oc);// = oc;
+		//init(cocktail);
 		//init(oc);
-	}
+		//replace(oc);
+		//undraw();
+		undraw();
+		this.cocktail.copy(oc);
+		//redraw();
+	}*/
 	
 	public void replace(Cocktail nc){
 		//this = new EditCocktailPanel();
 		
-		removeAll();
-		invalidate();
+		undraw();
 		init(nc);
+		redraw();
 		//getRootPane().removeAll();
 	    //JPanel newPanel=new JPanel();
-	    //setRootPane();
-		repaint();
-		revalidate();
-		//setVisible(true);
+	    //
+		
 	    //System.out.println("new panel created");//for debugging purposes
 	    //validate();
 	    //setVisible(true);
+	}
+	
+	public void undraw(){
+		removeAll();
+		//invalidate();
+	}
+	
+	public void redraw(){
+		revalidate();
+		repaint();
 	}
 
 }

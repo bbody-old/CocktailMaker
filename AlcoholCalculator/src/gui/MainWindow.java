@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -48,8 +49,6 @@ public class MainWindow {
 		// Initialize GUI
 		initialize();
 	}
-	
-	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -57,7 +56,6 @@ public class MainWindow {
 	private void initialize() {
 		// Initialize Frame with name and version
 		setFrame(new JFrame(Const_En.name + Const.space + Const_En.version));
-		
 		// Set frame size
 		getFrame().setSize(Const.width, Const.height);
 		

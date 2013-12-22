@@ -1,6 +1,6 @@
 package gui;
 
-public abstract class Const_En {
+public class Const_En extends Const {
 	public static String name = "Alcohol Calculator";
 	public static String version = "v0.0.1";
 	public static String add = "Add";

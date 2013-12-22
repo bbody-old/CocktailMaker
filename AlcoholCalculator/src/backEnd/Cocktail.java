@@ -364,4 +364,16 @@ public class Cocktail {
 		}
 	}
 
+
+	public void reset() {
+		cocktailName = "";
+		comment = "";
+		resetDrinks();
+	}
+	
+	public void resetDrinks() {
+		drinkList = new LinkedList<Drink>();
+		drinkVolumeList = new LinkedList<Double>();
+	}
+
 }

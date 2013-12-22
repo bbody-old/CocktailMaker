@@ -32,20 +32,61 @@ public class EditCocktail extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private LoadDrinks ld;
+	private LoadDrinks loadDrinks;
 	EditCocktailPanel ecp;
 	JScrollPane jsp;
+	private Cocktail cocktail;
+	private final Cocktail originalCocktail;
+	private JTextArea textPane;
+
 	
 	/**
 	 * Create the frame. 852
 	 */
-	public EditCocktail(final LoadDrinks ld, final Cocktail c, final JEditorPane lblP, final int selected, final JList jList, final LoadCocktails lc, Image iconImage) {
-		this.ld = ld;
-		setTitle("Edit");
-		setIconImage(iconImage);
+	public EditCocktail(final LoadDrinks loadDrinks, final Cocktail cocktail, final JEditorPane lblP, final int selected, final JList jList, final LoadCocktails lc, Image iconImage) {
+		this.loadDrinks = loadDrinks;
+		this.cocktail = cocktail;
+		this.originalCocktail = new Cocktail();
+		this.originalCocktail.copy(this.cocktail);
+		this.ecp = new EditCocktailPanel(this.loadDrinks, cocktail);
+
+
 		
+		setupUI(iconImage);
+		setupContentPane();
+		setupTextPane();
+		setupJPanel();
+		setupJPanelButtons();
+		
+		setupSaveButtons(lc, jList, selected, lblP);
+	}
+	
+	private void setupUI(Image iconImage){
+		setTitle(Messages.getString("EditCocktail.EditButton"));
+		setIconImage(iconImage);
 		setSize(Const.width, Const.height);
-		//setBounds(100, 100, 450, 300);
+	}
+	
+	private void setupJPanel(){
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 0;
+		contentPane.add(panel, gbc_panel);
+		
+		JLabel lblNewLabel = new JLabel(Messages.getString("EditCocktail.NameLabel")); //$NON-NLS-1$
+		lblNewLabel.setFont(new Font(Messages.getString("Global.Font"), Font.PLAIN, 18)); //$NON-NLS-1$
+		panel.add(lblNewLabel);
+		
+		textField = new JTextField(cocktail.getCocktailName());
+		panel.add(textField);
+		textField.setColumns(15);
+		
+	}
+	
+	private void setupContentPane(){
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,123 +96,30 @@ public class EditCocktail extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		// 
-		//------------------------------------------
-				
-		
-		//GridBagLayout gb2_contentPane = new GridBagLayout();
-
-		JPanel panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 0;
-		contentPane.add(panel, gbc_panel);
-		
-		JLabel lblNewLabel = new JLabel("Name");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel.add(lblNewLabel);
-		
-		textField = new JTextField(c.getCocktailName());
-		panel.add(textField);
-		textField.setColumns(15);
-		
-		//JPanel panel = new JPanel();
-		//GridBagLayout gb_contentPane = new GridBagLayout();
-		
-		
-		ecp = new EditCocktailPanel(ld, c);
-		
-		
-		jsp = new JScrollPane(ecp);
-		jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		GridBagConstraints gbc_jsp = new GridBagConstraints();
 		gbc_jsp.fill = GridBagConstraints.BOTH;
 		gbc_jsp.insets = new Insets(0, 0, 5, 5);
 		gbc_jsp.gridx = 1;
 		gbc_jsp.gridy = 1;
+		
+
+		jsp = new JScrollPane(ecp);
+		jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		contentPane.add(jsp, gbc_jsp);
-		
-		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.anchor = GridBagConstraints.EAST;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 2;
-		contentPane.add(panel_1, gbc_panel_1);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
-		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				/*for (int i = 0; i < c.getSize(); i++){
-					panel_1.remove(0);
-					panel_1.remove(0);
-					panel_1.remove(0);
-					panel_1.remove(0);
-				}*/				
-				final DrinkSelector ds = new DrinkSelector(ecp, ld, c);
-				ds.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		        
-				// Override it with a set of actions before it closes
-				ds.addWindowListener(new WindowAdapter() {
-		            public void windowClosed(WindowEvent e) {
-		            	
-		                System.out.println("Reset");
-		                ecp.replace(c);
-		                ds.setVisible(false);
-		            }
-		        });
-				ds.setVisible(true);
-				
-				//panel_1.remove(i*3 + j);
-				//panel_1.removeAll();
-			}
-		});
-		panel_1.add(btnAdd);
-		
-		JButton btnRemove = new JButton("Remove");
-		btnRemove.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//ecp.removeSelected();
-				ecp.removeSelected();
-				ecp.replace(ecp.cocktail);
-				//jsp = new JScrollPane(ecp);
-			}
-		});
-		
-		JButton btnReset = new JButton("Reset");
-		btnReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//ecp.removeSelected();
-				System.out.println("Resetty");
-				ecp.defaultDrinks();
-				//ecp.removeAllDrinks();
-				//ecp.replace(ecp.oc);
-				//c.copy(ecp.oc);
-				//jsp = new JScrollPane(ecp);
-			}
-		});
-		panel_1.add(btnReset);
-		panel_1.add(btnRemove);
-		
-		JButton btnRemoveAll = new JButton("Remove All");
-		btnRemoveAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ecp.removeAllDrinks();
-				ecp.replace(ecp.cocktail);
-				//jsp = new JScrollPane(ecp);
-			} 
-		});
-		panel_1.add(btnRemoveAll);
-		//contentPane.add(jsp, ecp);
-		
-		//ecp.setLayout(gb2_contentPane);
-		
-		
+	}
+	
+	private JTextArea setupTextPane(){
+		textPane = new JTextArea(cocktail.getComment());
+		JScrollPane scrollPane = getScrollPane();
+		scrollPane.setViewportView(textPane);
+		textPane.setLineWrap(true);
+		textPane.setColumns(80);
+		return textPane;
+	}
+	
+	private JScrollPane getScrollPane(){
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -179,14 +127,10 @@ public class EditCocktail extends JFrame {
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 3;
 		contentPane.add(scrollPane, gbc_scrollPane);
-		//
-		
-		
-		final JTextArea textPane = new JTextArea(c.getComment());
-		scrollPane.setViewportView(textPane);
-		textPane.setLineWrap(true);
-		textPane.setColumns(80);
-		
+		return scrollPane;
+	}
+	
+	private void setupSaveButtons(final LoadCocktails lc, final JList jList, final int selected, final JEditorPane lblP){
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 0, 5);
@@ -197,40 +141,127 @@ public class EditCocktail extends JFrame {
 		contentPane.add(panel_2, gbc_panel_2);
 		
 		
-		JButton btnNewButton = new JButton("Save and Close");
+		JButton btnNewButton = new JButton(Messages.getString("EditCocktail.SaveCloseButton")); //$NON-NLS-1$
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.setCocktailName(textField.getText());
-				c.setComment(textPane.getText());
-				for (int i = 0; i < c.getSize(); i++){
+				cocktail.setCocktailName(textField.getText());
+				cocktail.setComment(textPane.getText());
+				for (int i = 0; i < cocktail.getSize(); i++){
 					if (ecp.comboBox[i].getSelectedIndex() >= 0){
-						Drink d = ld.getDrink(ecp.comboBox[i].getSelectedIndex());
+						Drink d = loadDrinks.getDrink(ecp.comboBox[i].getSelectedIndex());
 						double volume = ecp.volumeSpinners[i].getNumber().doubleValue();
-						c.setDrink(i, d, volume);
+						cocktail.setDrink(i, d, volume);
 					}
 				}
 				setVisible(false);
-				lc.setCocktail(selected, c);
-				//System.out.println(c.getCocktailName());
+				lc.setCocktail(selected, cocktail);
 				jList.setListData(lc.getStrings());
 				jList.setSelectedIndex(selected);
-				//if (selected >= 0){
-		        	lblP.setText(c.toGuiStringPreview());
-		        	//System.out.println(c.toGuiStringPreview());
-		        	//lblP.repaint();
+		        	lblP.setText(cocktail.toGuiStringPreview());
 		        	jList.setSelectedIndex(selected);
 			}
 		});
 		panel_2.add(btnNewButton);
 		
-		JButton btnCloseWithoutSave = new JButton("Close without Save");
+		JButton btnCloseWithoutSave = new JButton(Messages.getString("EditCocktail.CloseNoSave")); //$NON-NLS-1$
 		btnCloseWithoutSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.copy(ecp.oc);
+				//cocktail.copy(originalCocktail);
+				cocktail.resetDrinks();
+				cocktail.copy(originalCocktail);
+				cocktail.setCocktailName(originalCocktail.getCocktailName());
+				cocktail.setComment(originalCocktail.getComment());
 				setVisible(false);
 			}
 		});
 		panel_2.add(btnCloseWithoutSave);
+	}
+	
+	private void setupJPanelButtons(){
+		JPanel panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.anchor = GridBagConstraints.EAST;
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 2;
+		contentPane.add(panel_1, gbc_panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+		
+		JButton btnAdd = new JButton(Messages.getString("EditCocktail.AddButton")); //$NON-NLS-1$
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*for (int i = 0; i < c.getSize(); i++){
+					panel_1.remove(0);
+					panel_1.remove(0);
+					panel_1.remove(0);
+					panel_1.remove(0);
+				}*/				
+				final DrinkSelector ds = new DrinkSelector(ecp, loadDrinks, cocktail);
+				ds.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		        
+				// Override it with a set of actions before it closes
+				ds.addWindowListener(new WindowAdapter() {
+		            public void windowClosed(WindowEvent e) {
+		                ecp.replace(cocktail);
+		                ds.setVisible(false);
+		            }
+		        });
+				ds.setVisible(true);
+				
+				//panel_1.remove(i*3 + j);
+				//panel_1.removeAll();
+				//System.out.println("Add");
+			}
+		});
+		panel_1.add(btnAdd);
+		
+		JButton btnRemove = new JButton(Messages.getString("EditCocktail.RemoveButton")); //$NON-NLS-1$
+		btnRemove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//ecp.removeSelected();
+				for (int i = ecp.getSelected().length - 1; i >= 0; i--){
+					/*if (removes[i].isSelected()){
+						cocktail.removeDrink(i);
+					}*/
+					if (ecp.getSelected()[i]){
+						cocktail.removeDrink(i);
+					}
+					
+				}
+				ecp.replace(cocktail);
+			}
+		});
+		
+		JButton btnReset = new JButton(Messages.getString("EditCocktail.ResetButton")); //$NON-NLS-1$
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Replace panel with original cocktail
+				ecp.replace(originalCocktail);
+				// Reset Cocktail
+				cocktail.reset();
+				// Copy all the drinks from the original Cocktail
+				cocktail.copy(originalCocktail);
+				// Change comment and title back to original
+				textPane.setText(cocktail.getComment());
+				textField.setText(cocktail.getCocktailName());
+				
+			}
+		});
+		
+		// Remove All Button
+		JButton btnRemoveAll = new JButton(Messages.getString("EditCocktail.RemoveAllButton")); //$NON-NLS-1$
+		btnRemoveAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Remove all the drinks and replace panel
+				cocktail.resetDrinks();
+				ecp.replace(cocktail);
+			} 
+		});
+		
+		panel_1.add(btnReset);
+		panel_1.add(btnRemove);
+		panel_1.add(btnRemoveAll);
 	}
 
 	
