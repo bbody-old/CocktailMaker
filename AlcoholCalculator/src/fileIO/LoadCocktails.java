@@ -2,6 +2,7 @@ package fileIO;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,7 +18,7 @@ import backEnd.Drink;
 public class LoadCocktails {
 	ArrayList<Cocktail> cocktails;
 	String fileName;
-	public LoadCocktails(String fileName){
+	public LoadCocktails(ResourceBundle resourceBundle, String fileName){
 		this.fileName = fileName;
 		cocktails = new ArrayList<Cocktail>();
 		try {
@@ -67,7 +68,7 @@ public class LoadCocktails {
 			    	  String drinkPerc = getTagValue(Const.percentage, dElement);
 			    	  String drinkComment = getTagValue(Const.drinkComment, dElement);
 			    	  //Element aElement = (Element) dList;
-				      Drink d = new Drink();
+				      Drink d = new Drink(resourceBundle.getString("drinkDefaultName"));
 				      d.setDrinkName(drinkName);
 				      d.setDrinkAlcoholPercentage(Integer.parseInt(drinkPerc));
 				      d.setComment(drinkComment);

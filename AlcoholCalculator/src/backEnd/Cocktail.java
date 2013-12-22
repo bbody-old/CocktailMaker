@@ -29,20 +29,6 @@ public class Cocktail {
 		comment = Const.defaultComment;
 	}
 	
-	
-	/**
-	 * A constructor, which invokes the default constructor with a default
-	 * name for the cocktail.
-	 */
-	public Cocktail(){
-		this(Const.cocktailDefaultName);
-		//this.cocktailName = "Untitled Drink";
-		//drinks = new HashMap<Drink, Double>();
-		//drinkList = new LinkedList<Drink>();
-		//drinkVolumeList = new LinkedList<Double>();
-
-	}
-	
 	/**
 	 * Getter method for the Cocktail Name;
 	 * @return cocktailName		name of cocktail (String)
@@ -127,7 +113,7 @@ public class Cocktail {
 	 * Typical toString, used for debugging purposes.
 	 * @return String	Representing Cocktail
 	 */
-	public String toString(){
+	public String toString(ResourceBundle resourceBundle){
 		LinkedList<String []> ll = getStringList();
 		String str = Const.cocktailDefaultToStringColumns;
 		
@@ -140,7 +126,7 @@ public class Cocktail {
 			str += Const.newLine;
 		}
 		
-		str += Const.cocktailDefaultTotalPercentage;
+		str += resourceBundle.getString("totalPerc");
 		
 		// Format the number to 2 decimal places.
 		NumberFormat formatter = new DecimalFormat(Const.numberFormat);
@@ -222,7 +208,7 @@ public class Cocktail {
 		}
 		
 		str += //Const.htmlBR +  
-				Const.cocktailDefaultTotalPercentage + 
+				resourceBundle.getString("totalPerc") + 
 				df.format(getTotalPercentage()).toString();// + 
 				//Const.htmlBR + Const.htmlClose;
 		

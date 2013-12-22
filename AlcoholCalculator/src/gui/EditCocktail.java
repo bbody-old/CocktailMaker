@@ -47,7 +47,7 @@ public class EditCocktail extends JFrame {
 	public EditCocktail(ResourceBundle resourceBundle, final LoadDrinks loadDrinks, final Cocktail cocktail, final JEditorPane lblP, final int selected, final JList jList, final LoadCocktails lc, Image iconImage) {
 		this.loadDrinks = loadDrinks;
 		this.cocktail = cocktail;
-		this.originalCocktail = new Cocktail();
+		this.originalCocktail = new Cocktail(resourceBundle.getString("cocktailDefaultName"));
 		this.originalCocktail.copy(this.cocktail);
 		this.ecp = new EditCocktailPanel(this.loadDrinks, cocktail);
 		this.resourceBundle = resourceBundle;

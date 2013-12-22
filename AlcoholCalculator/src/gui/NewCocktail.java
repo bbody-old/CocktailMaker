@@ -74,7 +74,7 @@ public class NewCocktail extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JButton button = new JButton("<");
+		JButton button = new JButton(Const.left);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 0);
 		gbc_button.gridx = 0;
@@ -94,7 +94,7 @@ public class NewCocktail extends JFrame {
 		});
 		panel.add(button, gbc_button);
 		
-		JButton button_1 = new JButton(">");
+		JButton button_1 = new JButton(Const.right);
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
 		gbc_button_1.insets = new Insets(0, 0, 5, 0);
 		gbc_button_1.gridx = 0;
@@ -115,7 +115,7 @@ public class NewCocktail extends JFrame {
 		});
 		panel.add(button_1, gbc_button_1);
 		
-		JButton btnClear = new JButton("<<");
+		JButton btnClear = new JButton(Const.doubleLeft);
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedDrinksNames.clear();
@@ -149,7 +149,7 @@ public class NewCocktail extends JFrame {
 		JButton btnNewButton = new JButton(resourceBundle.getString("next"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Cocktail c = new Cocktail();
+				Cocktail c = new Cocktail(resourceBundle.getString("cocktailDefaultName"));
 				for (int i = 0; i < selectedDrinks.size(); i++){
 					c.addDrink(10.0, selectedDrinks.get(i));
 				}

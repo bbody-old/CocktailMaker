@@ -33,15 +33,16 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.Global", Locale.SIMPLIFIED_CHINESE);
 					// Load cocktails and drinks for use in the program
-					LoadCocktails lc = new LoadCocktails(cocktailsFileName);
-					LoadDrinks ld = new LoadDrinks(drinksFileName);
+					LoadCocktails lc = new LoadCocktails(resourceBundle, cocktailsFileName);
+					LoadDrinks ld = new LoadDrinks(resourceBundle, drinksFileName);
 					Cocktail c = lc.getCocktail(0);
 					//System.out.println(c.getSize());
 					//DrinkSelector ds = new DrinkSelector(ld, c);
 					//System.out.println(c.getSize());
 					//ds.setVisible(true);
-					ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.Global", Locale.SIMPLIFIED_CHINESE);
+					
 					// Start main window
 					MainWindow window = new MainWindow(lc, ld, iconFileName, resourceBundle);
 					window.getFrame().setVisible(true);

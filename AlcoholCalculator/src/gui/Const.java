@@ -6,7 +6,9 @@ public class Const {
 	public static String space = " ";
 	public static String dash = " - ";
 	public static int maxDrinksInList = 5;
-	
+	public static String left = "<";
+	public static String doubleLeft = "<<";
+	public static String right = ">";
 	// Close Dialog
 	public static int closeWidth = 300;
 	public static int closeHeight = 100;

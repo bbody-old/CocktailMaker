@@ -31,24 +31,23 @@ public class Global_zh_CN extends ListResourceBundle {
 	        { "delete_dialog_1", "你确定把 "},
 	        { "delete_dialog_2", " 删除了吗？"},
 	        { "viewTitle", "鸡尾酒试图"},
-	        
 	        { "file", "File"},
 	        { "preferences", "设置"},
 	        { "exit", "退出"},
 	        { "about", "关于"},
-	        
 	        { "nameLabel", "名字"},
 	        { "closeNoSave", "Close without Save"},
 	        { "removeAll", "删除所有"},
 	        { "saveCloseButton", "Save and Close"},
 	        { "consists", "包括："},
-	        
 	        { "drink", "Drink"},
 	        { "newCtail", "信鸡尾酒"},
 	        { "next", "下一步"},
 	        { "close", "关闭"},
 	        { "reset", "Reset"},
-	        { "totalPerc", "酒精度数： "}
+	        { "totalPerc", "酒精度数： "},
+	        { "cocktailDefaultName", "Untitled Cocktail"},
+	        { "drinkDefaultName", "Generic Drink"}
 	    };
 
 }

@@ -18,7 +18,6 @@ public class Global_en_GB extends ListResourceBundle {
 	        { "remove", "Remove"},
 	        { "preview", "Click a cocktail to see a preview"},
 	        { "delete", "Delete Dialog"},
-	        
 	        { "yes", "Yes"},
 	        { "no", "No"},
 	        { "drinkSelectQuestion", "What drink would you like to add?"},
@@ -36,20 +35,20 @@ public class Global_en_GB extends ListResourceBundle {
 	        { "preferences", "Preferences"},
 	        { "exit", "Exit"},
 	        { "about", "About"},
-	        
 	        { "editButton", "Edit"},
 	        { "nameLabel", "Name"},
 	        { "closeNoSave", "Close without Save"},
 	        { "removeAll", "Remove All"},
 	        { "saveCloseButton", "Save and Close"},
 	        { "consists", "Consists:"},
-	        
 	        { "drink", "Drink"},
 	        { "newCtail", "New Cocktail"},
 	        { "next", "Next"},
 	        { "close", "Close"},
 	        { "reset", "Reset"},
-	        { "totalPerc", "Total Percentage: "}
+	        { "totalPerc", "Total Percentage: "},
+	        { "cocktailDefaultName", "Untitled Cocktail"},
+	        { "drinkDefaultName", "Generic Drink"}
 	    };
 
 }

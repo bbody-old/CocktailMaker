@@ -33,21 +33,6 @@ public class Drink {
 		this(drinkName, Const.drinkDefaultPercent);
 	}
 	
-	/**
-	 * Constructor which calls the default and adds its own default name.
-	 * @param drinkAlcoholPercentage	Given drink percentage.
-	 */
-	public Drink(double drinkAlcoholPercentage){
-		this(Const.drinkDefaultName, drinkAlcoholPercentage);
-	}
-	
-	/**
-	 * Calls the default and gives its own default name and drink alcohol
-	 * percentage.
-	 */
-	public Drink(){
-		this(Const.drinkDefaultName, Const.drinkDefaultPercent);
-	}
 
 	/**
 	 * Getter method for comment of the drink.
