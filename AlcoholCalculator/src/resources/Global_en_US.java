@@ -50,6 +50,7 @@ public class Global_en_US extends ListResourceBundle {
 	        { "cocktailDefaultName", "Untitled Cocktail"},
 	        { "drinkDefaultName", "Generic Drink"},
 	        { "loadCocktailList", "Load Cocktails"},
-	        { "loadDrinkList", "Load Drinks"}
+	        { "loadDrinkList", "Load Drinks"},
+	        { "aboutText", "This program was created by Brendon Body"}
 	    };
 }

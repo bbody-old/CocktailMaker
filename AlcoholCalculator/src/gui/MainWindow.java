@@ -246,7 +246,8 @@ public class MainWindow {
 		JMenuItem mntmAbout = new JMenuItem(resourceBundle.getString("about"));
 		mntmAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("About");
+				About ab = new About(resourceBundle, iconImage);
+				ab.setVisible(true);
 			}
 		});
 		mnFile.add(mntmAbout);
