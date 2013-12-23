@@ -9,25 +9,14 @@ import fileIO.LoadCocktails;
 import fileIO.LoadDrinks;
 import fileIO.PreferenceHandler;
 public class Main {
-	/*
-	private static ResourceBundle setupResourceBundles(){
-		ResourceBundle enUS = ResourceBundle.getBundle("American English", new Locale("en", "US"));
-		ResourceBundle enGB = ResourceBundle.getBundle("British English", Locale.UK);
-		ResourceBundle zhS = ResourceBundle.getBundle("Simplified Chinese", Locale.SIMPLIFIED_CHINESE);
-		ResourceBundle zhT = ResourceBundle.getBundle("Traditional Chinese", Locale.TRADITIONAL_CHINESE);
-		
-		return enUS;
-	}*/
 	/**
 	 * Step in point for the Main program.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		PreferenceHandler ph = new PreferenceHandler();
 		
 		// TODO: Dialog box to get different files (On First Run)
-		final String cocktailsFileName = "cocktail-list.xml";
-		final String drinksFileName = "drink-list.xml";
+		final PreferenceHandler pf = new PreferenceHandler();
 		final String iconFileName = "icon.png";
 		
 		// TODO: Choose Language Dialog
@@ -36,15 +25,10 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.Global", Locale.SIMPLIFIED_CHINESE);
+					ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.Global", pf.getLocale());
 					// Load cocktails and drinks for use in the program
-					LoadCocktails lc = new LoadCocktails(resourceBundle, cocktailsFileName);
-					LoadDrinks ld = new LoadDrinks(resourceBundle, drinksFileName);
-					Cocktail c = lc.getCocktail(0);
-					//System.out.println(c.getSize());
-					//DrinkSelector ds = new DrinkSelector(ld, c);
-					//System.out.println(c.getSize());
-					//ds.setVisible(true);
+					LoadCocktails lc = new LoadCocktails(resourceBundle, pf.getCocktailsFilename());
+					LoadDrinks ld = new LoadDrinks(resourceBundle, pf.getDrinksFilename());
 					
 					// Start main window
 					MainWindow window = new MainWindow(lc, ld, iconFileName, resourceBundle);
