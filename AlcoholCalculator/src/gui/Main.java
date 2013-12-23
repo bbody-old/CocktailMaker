@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import backEnd.Cocktail;
 import fileIO.LoadCocktails;
 import fileIO.LoadDrinks;
+import fileIO.PreferenceHandler;
 public class Main {
 	/*
 	private static ResourceBundle setupResourceBundles(){
@@ -22,6 +23,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		PreferenceHandler ph = new PreferenceHandler();
+		
 		// TODO: Dialog box to get different files (On First Run)
 		final String cocktailsFileName = "cocktail-list.xml";
 		final String drinksFileName = "drink-list.xml";

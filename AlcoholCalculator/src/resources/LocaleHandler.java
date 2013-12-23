@@ -40,4 +40,23 @@ public class LocaleHandler {
 	public String getSelectedLocaleString(){
 		return stringList[indexSelected];
 	}
+
+	public static boolean hasLocale(Locale defaultLocale) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < list.length; i++){
+			if (list[i].equals(defaultLocale)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static String getStringRepresentation(Locale locale){
+		for (int i = 0; i < list.length; i++){
+			if (locale.equals(list[i])){
+				return stringList[i];
+			}
+		}
+		return "System";
+	}
 }

@@ -227,6 +227,22 @@ public class MainWindow {
 		});
 		mnFile.add(mntmPreferences);
 		
+		JMenuItem mntmLoadCocktails = new JMenuItem(resourceBundle.getString("loadCocktailList"));
+		mntmLoadCocktails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Load Cocktails");
+			}
+		});
+		mnFile.add(mntmLoadCocktails);
+		
+		JMenuItem mntmLoadDrinks = new JMenuItem(resourceBundle.getString("loadDrinkList"));
+		mntmLoadDrinks.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Load Drinks");
+			}
+		});
+		mnFile.add(mntmLoadDrinks);
+		
 		JMenuItem mntmAbout = new JMenuItem(resourceBundle.getString("about"));
 		mntmAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

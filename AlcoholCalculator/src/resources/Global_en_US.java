@@ -48,6 +48,8 @@ public class Global_en_US extends ListResourceBundle {
 	        { "reset", "Reset"},
 	        { "totalPerc", "Total Percentage: "},
 	        { "cocktailDefaultName", "Untitled Cocktail"},
-	        { "drinkDefaultName", "Generic Drink"}
+	        { "drinkDefaultName", "Generic Drink"},
+	        { "loadCocktailList", "Load Cocktails"},
+	        { "loadDrinkList", "Load Drinks"}
 	    };
 }

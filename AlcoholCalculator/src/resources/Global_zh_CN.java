@@ -47,7 +47,9 @@ public class Global_zh_CN extends ListResourceBundle {
 	        { "reset", "Reset"},
 	        { "totalPerc", "酒精度数： "},
 	        { "cocktailDefaultName", "Untitled Cocktail"},
-	        { "drinkDefaultName", "Generic Drink"}
+	        { "drinkDefaultName", "Generic Drink"},
+	        { "loadCocktailList", "Load Cocktails"},
+	        { "loadDrinkList", "Load Drinks"}
 	    };
 
 }
