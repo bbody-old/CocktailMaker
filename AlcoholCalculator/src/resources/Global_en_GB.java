@@ -48,7 +48,22 @@ public class Global_en_GB extends ListResourceBundle {
 	        { "reset", "Reset"},
 	        { "totalPerc", "Total Percentage: "},
 	        { "cocktailDefaultName", "Untitled Cocktail"},
-	        { "drinkDefaultName", "Generic Drink"}
+	        { "drinkDefaultName", "Generic Drink"},
+	        { "loadCocktailList", "Load Cocktails"},
+	        { "loadDrinkList", "Load Drinks"},
+	        { "aboutText", "This program was created by Brendon Body"},
+	        { "drinksDialog", "Drinks files"},
+	        
+	        { "cocktailsDialog", "Cocktails files"},
+	        { "font", "Font"},
+	        { "fontname", "Font Name"},
+	        { "fontsize", "Font Size"},
+	        { "language", "Language"},
+	        { "files", "Files"},
+	        { "cocktails", "Cocktails"},
+	        { "drinks", "Drinks"},
+	        { "load", "Load"},
+	        { "prefWarning", "Warning: Program must be closed for settings to take effect."}
 	    };
 
 }

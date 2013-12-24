@@ -63,11 +63,11 @@ public class PreferencesFrame extends JFrame {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+				0.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
 
 		JLabel lblNewLabel_3 = new JLabel(resourceBundle.getString("font"));
@@ -215,13 +215,21 @@ public class PreferencesFrame extends JFrame {
 					textField_3.setText(ldd.getSelected());
 			}
 		});
+		
+		JLabel lblWarningProgramMust = new JLabel(resourceBundle.getString("prefWarning"));
+		GridBagConstraints gbc_lblWarningProgramMust = new GridBagConstraints();
+		gbc_lblWarningProgramMust.gridwidth = 3;
+		gbc_lblWarningProgramMust.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWarningProgramMust.gridx = 0;
+		gbc_lblWarningProgramMust.gridy = 9;
+		getContentPane().add(lblWarningProgramMust, gbc_lblWarningProgramMust);
 		// panel_1.add(btnNewButton_3);
 
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 2;
-		gbc_panel.gridy = 9;
+		gbc_panel.gridy = 10;
 		getContentPane().add(panel, gbc_panel);
 
 		JButton btnNewButton = new JButton(resourceBundle.getString("saveButton"));
