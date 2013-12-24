@@ -22,7 +22,7 @@ public class Global_en_US extends ListResourceBundle {
 	        { "no", "No"},
 	        { "drinkSelectQuestion", "What drink would you like to add?"},
 	        { "okButton", "OK"},
-	        { "saveButton", "No"},
+	        { "saveButton", "Save"},
 	        { "dsaveButton", "Don't Save"},
 	        { "cancelButton", "Cancel"},
 	        { "deleteButton", "Delete"},
@@ -53,6 +53,15 @@ public class Global_en_US extends ListResourceBundle {
 	        { "loadDrinkList", "Load Drinks"},
 	        { "aboutText", "This program was created by Brendon Body"},
 	        { "drinksDialog", "Drinks files"},
-	        { "cocktailsDialog", "Cocktails files"}
+	        
+	        { "cocktailsDialog", "Cocktails files"},
+	        { "font", "Font"},
+	        { "fontname", "Font Name"},
+	        { "fontsize", "Font Size"},
+	        { "language", "Language"},
+	        { "files", "Files"},
+	        { "cocktails", "Cocktails"},
+	        { "drinks", "Drinks"},
+	        { "load", "Load"}
 	    };
 }

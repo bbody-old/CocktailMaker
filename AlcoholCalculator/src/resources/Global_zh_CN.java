@@ -52,7 +52,16 @@ public class Global_zh_CN extends ListResourceBundle {
 	        { "loadDrinkList", "Load Drinks"},
 	        { "aboutText", "白宝龙做了这款程序"},
 	        { "drinksDialog", "Drinks files"},
-	        { "cocktailsDialog", "Cocktails files"}
+	        { "cocktailsDialog", "Cocktails files"},
+	        
+	        { "font", "Font"},
+	        { "fontname", "Font Name"},
+	        { "fontsize", "Font Size"},
+	        { "language", "Language"},
+	        { "files", "Files"},
+	        { "cocktails", "Cocktails"},
+	        { "drinks", "Drinks"},
+	        { "load", "Load"}
 	    };
 
 }
