@@ -5,9 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -41,18 +39,18 @@ public class MainWindow {
 	private JFrame frame;
 	private LoadCocktails loadedCocktails;
 	private LoadDrinks loadedDrinks;
-	private String iconFileName;
-	private Image iconImage;
 	private ResourceBundle resourceBundle;
-	private PreferenceHandler ph;
+	private PreferenceHandler preferenceHandler;
 
-	public MainWindow(PreferenceHandler ph, LoadCocktails lc, LoadDrinks ld, String iconFileName, ResourceBundle bundle) {
+	public MainWindow(PreferenceHandler preferenceHandler, 
+			LoadCocktails loadCocktails, LoadDrinks loadDrinks, 
+			ResourceBundle resourceBundle) {
+		
 		// Set Variables
-		this.loadedCocktails = lc;
-		this.loadedDrinks = ld;
-		this.iconFileName = iconFileName;
-		this.resourceBundle = bundle;
-		this.ph = ph;
+		this.loadedCocktails = loadCocktails;
+		this.loadedDrinks = loadDrinks;
+		this.resourceBundle = resourceBundle;
+		this.preferenceHandler = preferenceHandler;
 		
 		// Initialize GUI
 		initialize();
@@ -64,12 +62,13 @@ public class MainWindow {
 	private void initialize() {
 		// Initialize Frame with name and version
 		setFrame(new JFrame(this.resourceBundle.getString("Name") + Const.space + Const.version));
+		
 		// Set frame size
 		getFrame().setSize(Const.width, Const.height);
 		
 		// Set program Icon
-		iconImage = Toolkit.getDefaultToolkit().getImage(iconFileName);
-		getFrame().setIconImage(iconImage);
+		
+		getFrame().setIconImage(Const.iconImage);
 		
 		// Stop program exiting
 		getFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -83,11 +82,13 @@ public class MainWindow {
 		
 		// Configure Layout
 		GridBagLayout mainWindowLayout = new GridBagLayout();
+		
 		// Columns
 		mainWindowLayout.columnWidths = new int[]{getFrame().getWidth()/24, 
 				getFrame().getWidth()*10/24, getFrame().getWidth()*2/24, 
 				getFrame().getWidth()*10/24, getFrame().getWidth()/24};
 		mainWindowLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0};
+		
 		// Rows
 		mainWindowLayout.rowHeights = new int[]{getFrame().getHeight()/24, 
 				getFrame().getHeight()*17/24, getFrame().getHeight()/24, 
@@ -98,13 +99,16 @@ public class MainWindow {
 		// Set up editor pane
 		final JEditorPane previewPane = new JEditorPane(Const.epMode, 
 				resourceBundle.getString("preview"));
+		
 		// Do not allow editing
 		previewPane.setEditable(false);
+		
 		// Set colour to make it look like a lable
 		previewPane.setBackground(UIManager.getColor(Const.epColour));
 		
 		// Set up a list for the Cocktails
 		final JList cocktailList = new JList(loadedCocktails.getStrings());
+		
 		// Set up an action listener so when the user changes selection it 
 		// changes the preview window
 		cocktailList.addListSelectionListener(new ListSelectionListener() {
@@ -177,7 +181,7 @@ public class MainWindow {
             public void actionPerformed(ActionEvent e)
             {
             	if (cocktailList.getSelectedIndex() >= 0){
-            		View v = new View(resourceBundle, loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).getCocktailName(), loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).toGuiStringView(resourceBundle), iconImage);
+            		View v = new View(resourceBundle, loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).getCocktailName(), loadedCocktails.getCocktail(cocktailList.getSelectedIndex()).toGuiStringView(resourceBundle));
             		v.setVisible(true);
             	}
             }
@@ -192,7 +196,7 @@ public class MainWindow {
             	int selected = cocktailList.getSelectedIndex();
             	if (selected >= 0){
             		Cocktail cocktail = loadedCocktails.getCocktail(selected);
-	            	EditCocktail frame = new EditCocktail(resourceBundle, loadedDrinks, cocktail, previewPane, selected, cocktailList, loadedCocktails, iconImage);
+	            	EditCocktail frame = new EditCocktail(resourceBundle, loadedDrinks, cocktail, previewPane, selected, cocktailList, loadedCocktails);
 					frame.setVisible(true);
 					
 					/*
@@ -222,7 +226,7 @@ public class MainWindow {
 		mntmPreferences.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				PreferencesFrame preferencesWindow = new PreferencesFrame(resourceBundle, ph);
+				PreferencesFrame preferencesWindow = new PreferencesFrame(resourceBundle, preferenceHandler);
 				//preferencesWindow.show();
 				preferencesWindow.setVisible(true);
 				//preferencesWindow.
@@ -234,9 +238,9 @@ public class MainWindow {
 		JMenuItem mntmLoadCocktails = new JMenuItem(resourceBundle.getString("loadCocktailList"));
 		mntmLoadCocktails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LoadCocktailsDialog lcd = new LoadCocktailsDialog(resourceBundle, ph);
+				LoadCocktailsDialog lcd = new LoadCocktailsDialog(resourceBundle, preferenceHandler);
 				if (lcd.getSelected().length() > 0){
-					ph.setCocktailsFilename(lcd.getSelected());
+					preferenceHandler.setCocktailsFilename(lcd.getSelected());
 				}
 			}
 		});
@@ -245,9 +249,9 @@ public class MainWindow {
 		JMenuItem mntmLoadDrinks = new JMenuItem(resourceBundle.getString("loadDrinkList"));
 		mntmLoadDrinks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LoadDrinksDialog ldd = new LoadDrinksDialog(resourceBundle, ph);
+				LoadDrinksDialog ldd = new LoadDrinksDialog(resourceBundle, preferenceHandler);
 				if (ldd.getSelected().length() > 0){
-					ph.setDrinksFilename(ldd.getSelected());
+					preferenceHandler.setDrinksFilename(ldd.getSelected());
 				}
 			}
 		});
@@ -256,7 +260,7 @@ public class MainWindow {
 		JMenuItem mntmAbout = new JMenuItem(resourceBundle.getString("about"));
 		mntmAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				About ab = new About(resourceBundle, iconImage);
+				About ab = new About(resourceBundle);
 				ab.setVisible(true);
 			}
 		});
@@ -299,21 +303,6 @@ public class MainWindow {
 		            	}
 	            	}
             	} else if (selected.length > 1){
-            		// TODO: HTML format so everything can go in
-            		/*String name = "";// = lc.getCocktail(jList.getSelectedIndex()).getCocktailName();
-            		for (int i = 0; i < selected.length; i++){
-            			if (i > 0){
-            				if (i != selected.length-1){
-            					name += ", ";
-            				} else {
-            					name += " and ";
-            				}
-            			}
-            			name += lc.getCocktail(selected[i]).getCocktailName();
-            			
-            		
-            		}
-            		*/
             		String name = "these items";
 	            	
 	            	String[] options = {resourceBundle.getString("deleteButton"), resourceBundle.getString("cancelButton")};

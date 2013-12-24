@@ -1,37 +1,44 @@
 package gui;
 
 import java.awt.EventQueue;
-import java.util.Locale;
 import java.util.ResourceBundle;
-
-import backEnd.Cocktail;
 import fileIO.LoadCocktails;
 import fileIO.LoadDrinks;
 import fileIO.PreferenceHandler;
+
 public class Main {
+	
+	static PreferenceHandler preferenceHandler;
+	
 	/**
-	 * Step in point for the Main program.
+	 * Start in point for the Main program.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		// TODO: Dialog box to get different files (On First Run)
-		final PreferenceHandler ph = new PreferenceHandler();
-		final String iconFileName = "icon.png";
-		
-		// TODO: Choose Language Dialog
+		// Get preferences
+		preferenceHandler = new PreferenceHandler();
 		
 		// Set up GUI
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.Global", ph.getLocale());
+					// Get string resources based on preferences.
+					ResourceBundle resourceBundle = 
+							ResourceBundle.getBundle("resources.Global", 
+									preferenceHandler.getLocale());
+					
 					// Load cocktails and drinks for use in the program
-					LoadCocktails lc = new LoadCocktails(resourceBundle, ph.getCocktailsFilename());
-					LoadDrinks ld = new LoadDrinks(resourceBundle, ph.getDrinksFilename());
+					LoadCocktails loadCocktails = new LoadCocktails(
+							resourceBundle, 
+							preferenceHandler.getCocktailsFilename());
+					LoadDrinks loadDrinks = new LoadDrinks(resourceBundle, 
+							preferenceHandler.getDrinksFilename());
 					
 					// Start main window
-					MainWindow window = new MainWindow(ph, lc, ld, iconFileName, resourceBundle);
+					MainWindow window = new MainWindow(preferenceHandler, 
+							loadCocktails, loadDrinks, resourceBundle);
+					
+					// Open frame
 					window.getFrame().setVisible(true);
 					
 				} catch (Exception e) {

@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 public class Const {
 	public static int width = 640;
 	public static int height = 480;
@@ -21,5 +24,9 @@ public class Const {
 	public static String epMode = "text/html";
 	public static String epColour = "Label.background";
 
-	public static String version = "v0.0.3";
+	public static String version = "v1.0.0";
+	public static String iconFilename = "icon.ico";
+	
+	public static Image iconImage = Toolkit.getDefaultToolkit().getImage(iconFilename);
+
 }

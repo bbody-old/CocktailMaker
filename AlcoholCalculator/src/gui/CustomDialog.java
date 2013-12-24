@@ -16,12 +16,12 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 
 public class CustomDialog extends JDialog {
-	public CustomDialog(ResourceBundle resourceBundle, Image iconImage, String title, String details) {
+	public CustomDialog(ResourceBundle resourceBundle, String title, String details) {
 		// Set name
 		setName(title);
 
 		// Set icon
-		setIconImage(iconImage);
+		setIconImage(Const.iconImage);
 
 		// Set Size
 		setSize(Const.viewWidth, Const.viewHeight);

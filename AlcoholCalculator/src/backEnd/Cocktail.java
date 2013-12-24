@@ -351,13 +351,20 @@ public class Cocktail {
 		}
 	}
 
-
+	/**
+	 * Reset the name and drinks of the cocktail.
+	 * 
+	 */
 	public void reset() {
 		cocktailName = "";
 		comment = "";
 		resetDrinks();
 	}
 	
+	/**
+	 * Reset the just the drinks of the cocktail.
+	 * 
+	 */
 	public void resetDrinks() {
 		drinkList = new LinkedList<Drink>();
 		drinkVolumeList = new LinkedList<Double>();
