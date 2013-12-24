@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// TODO: Dialog box to get different files (On First Run)
-		final PreferenceHandler pf = new PreferenceHandler();
+		final PreferenceHandler ph = new PreferenceHandler();
 		final String iconFileName = "icon.png";
 		
 		// TODO: Choose Language Dialog
@@ -25,13 +25,13 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.Global", pf.getLocale());
+					ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.Global", ph.getLocale());
 					// Load cocktails and drinks for use in the program
-					LoadCocktails lc = new LoadCocktails(resourceBundle, pf.getCocktailsFilename());
-					LoadDrinks ld = new LoadDrinks(resourceBundle, pf.getDrinksFilename());
+					LoadCocktails lc = new LoadCocktails(resourceBundle, ph.getCocktailsFilename());
+					LoadDrinks ld = new LoadDrinks(resourceBundle, ph.getDrinksFilename());
 					
 					// Start main window
-					MainWindow window = new MainWindow(lc, ld, iconFileName, resourceBundle);
+					MainWindow window = new MainWindow(ph, lc, ld, iconFileName, resourceBundle);
 					window.getFrame().setVisible(true);
 					
 				} catch (Exception e) {

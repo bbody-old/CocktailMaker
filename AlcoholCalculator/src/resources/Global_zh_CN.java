@@ -50,7 +50,9 @@ public class Global_zh_CN extends ListResourceBundle {
 	        { "drinkDefaultName", "Generic Drink"},
 	        { "loadCocktailList", "Load Cocktails"},
 	        { "loadDrinkList", "Load Drinks"},
-	        { "aboutText", "白宝龙做了这款程序"}
+	        { "aboutText", "白宝龙做了这款程序"},
+	        { "drinksDialog", "Drinks files"},
+	        { "cocktailsDialog", "Cocktails files"}
 	    };
 
 }

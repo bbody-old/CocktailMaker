@@ -10,8 +10,6 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
@@ -35,6 +33,7 @@ import javax.swing.event.ListSelectionListener;
 import backEnd.Cocktail;
 import fileIO.LoadCocktails;
 import fileIO.LoadDrinks;
+import fileIO.PreferenceHandler;
 
 public class MainWindow {
 
@@ -45,13 +44,15 @@ public class MainWindow {
 	private String iconFileName;
 	private Image iconImage;
 	private ResourceBundle resourceBundle;
+	private PreferenceHandler ph;
 
-	public MainWindow(LoadCocktails lc, LoadDrinks ld, String iconFileName, ResourceBundle bundle) {
+	public MainWindow(PreferenceHandler ph, LoadCocktails lc, LoadDrinks ld, String iconFileName, ResourceBundle bundle) {
 		// Set Variables
 		this.loadedCocktails = lc;
 		this.loadedDrinks = ld;
 		this.iconFileName = iconFileName;
 		this.resourceBundle = bundle;
+		this.ph = ph;
 		
 		// Initialize GUI
 		initialize();
@@ -218,10 +219,13 @@ public class MainWindow {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmPreferences = new JMenuItem(resourceBundle.getString("preferences"));
-		mntmPreferences.addMouseListener(new MouseAdapter() {
+		mntmPreferences.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {
+				PreferencesFrame preferencesWindow = new PreferencesFrame(resourceBundle, ph);
+				//preferencesWindow.show();
+				preferencesWindow.setVisible(true);
+				//preferencesWindow.
 				//gp.
 			}
 		});
@@ -230,7 +234,10 @@ public class MainWindow {
 		JMenuItem mntmLoadCocktails = new JMenuItem(resourceBundle.getString("loadCocktailList"));
 		mntmLoadCocktails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Load Cocktails");
+				LoadCocktailsDialog lcd = new LoadCocktailsDialog(resourceBundle, ph);
+				if (lcd.getSelected().length() > 0){
+					ph.setCocktailsFilename(lcd.getSelected());
+				}
 			}
 		});
 		mnFile.add(mntmLoadCocktails);
@@ -238,7 +245,10 @@ public class MainWindow {
 		JMenuItem mntmLoadDrinks = new JMenuItem(resourceBundle.getString("loadDrinkList"));
 		mntmLoadDrinks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Load Drinks");
+				LoadDrinksDialog ldd = new LoadDrinksDialog(resourceBundle, ph);
+				if (ldd.getSelected().length() > 0){
+					ph.setDrinksFilename(ldd.getSelected());
+				}
 			}
 		});
 		mnFile.add(mntmLoadDrinks);

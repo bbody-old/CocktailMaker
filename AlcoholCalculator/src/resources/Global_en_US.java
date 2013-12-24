@@ -51,6 +51,8 @@ public class Global_en_US extends ListResourceBundle {
 	        { "drinkDefaultName", "Generic Drink"},
 	        { "loadCocktailList", "Load Cocktails"},
 	        { "loadDrinkList", "Load Drinks"},
-	        { "aboutText", "This program was created by Brendon Body"}
+	        { "aboutText", "This program was created by Brendon Body"},
+	        { "drinksDialog", "Drinks files"},
+	        { "cocktailsDialog", "Cocktails files"}
 	    };
 }

@@ -19,10 +19,10 @@ public class PreferenceHandler {
 	static int defaultFontSize = 18;
 	static int defaultFontType = Font.PLAIN;
 	
-	static String preferencesFilename = "preferences.xml";
+	static String preferencesFilename = "preferences.config";
 	
-	static String defaultDrinksFilename = "drink-list.xml";
-	static String defaultCocktailsFilename = "cocktail-list.xml";
+	static String defaultDrinksFilename = "drink-list.drinks";
+	static String defaultCocktailsFilename = "cocktail-list.cocktails";
 	
 	public PreferenceHandler(){
 		try {	
@@ -60,7 +60,6 @@ public class PreferenceHandler {
 		prefs = new Properties();
 		prefs.setProperty("fontname", defaultFontName);
 		prefs.setProperty("fontsize", new Integer(defaultFontSize).toString());
-		prefs.setProperty("fonttype", new Integer(Font.PLAIN).toString());
 		
 		prefs.setProperty("language", LocaleHandler.getStringRepresentation(getLocale()));
 		prefs.setProperty("cocktailsFilename", defaultCocktailsFilename);
@@ -83,9 +82,16 @@ public class PreferenceHandler {
 	
 	public Font getFont(){
 		String fontName = prefs.getProperty("fontname", defaultFontName);
-		int fontType = Integer.parseInt(prefs.getProperty("fonttype", new Integer(defaultFontType).toString()));
 		int fontSize = Integer.parseInt(prefs.getProperty("fontsize", new Integer(defaultFontSize).toString()));
-		return new Font(fontName, fontType, fontSize);
+		return new Font(fontName, Font.PLAIN, fontSize);
+	}
+	
+	public void setFontName(String fontName){
+		prefs.setProperty("fontname", fontName);
+	}
+	
+	public void setFontSize(String size){
+		prefs.setProperty("fontsize", size);
 	}
 	
 	public Locale getLocale(){
@@ -101,11 +107,38 @@ public class PreferenceHandler {
 			return new LocaleHandler().getSelectedLocale();
 		}
 	}
+	
+	public String getLocaleName(){
+		String selectedLanguage = prefs.getProperty("language", "System"); 
+		if (!selectedLanguage.equals("System")){
+			LocaleHandler l = new LocaleHandler(selectedLanguage);
+			return l.getSelectedLocaleString();
+		} else {
+			Locale defaultLocale = Locale.getDefault();
+			if (LocaleHandler.hasLocale(defaultLocale)){
+				return LocaleHandler.getStringRepresentation(defaultLocale);
+			}
+			return LocaleHandler.getStringRepresentation(new LocaleHandler().getSelectedLocale());
+		}
+	}
+	
+	public void setLocaleName(String locale){
+		prefs.setProperty("language", locale);
+	}
+	
 	public String getCocktailsFilename() {
 		return prefs.getProperty("cocktailsFilename", defaultCocktailsFilename);
 	}
 	
+	public void setCocktailsFilename(String filename){
+		prefs.setProperty("cocktailsFilename", filename);
+	}
+	
 	public String getDrinksFilename(){
 		return prefs.getProperty("drinksFilename", defaultDrinksFilename);
+	}
+	
+	public void setDrinksFilename(String filename){
+		prefs.setProperty("drinksFilename", filename);
 	}
 }
