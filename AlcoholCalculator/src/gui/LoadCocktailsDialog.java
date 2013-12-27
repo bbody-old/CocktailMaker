@@ -1,7 +1,6 @@
 package gui;
 
 import java.io.File;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;

@@ -21,6 +21,7 @@ import fileIO.LoadCocktails;
 public class Close extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	
 	/**
 	 * Dialog box for when the program is close for saving the program.
 	 */
