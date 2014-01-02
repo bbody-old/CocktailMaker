@@ -1,94 +1,94 @@
 <?xml version="1.0"?>
 <drinks>
 	<drink>
-		<drink-name>Qingdao Beer</drink-name>
-		<perc>5</perc>
-		<drink-comment>Nice beer from China</drink-comment>
+		<name>Qingdao Beer</name>
+		<percentage>5</percentage>
+		<comment>Nice beer from China</comment>
 	</drink>
 	<drink>
-		<drink-name>XXXX</drink-name>
-		<perc>3</perc>
-		<drink-comment>...</drink-comment>
+		<name>XXXX</name>
+		<percentage>3</percentage>
+		<comment>...</comment>
 	</drink>
 	<drink>
-		<drink-name>Bundaberg Rum</drink-name>
-		<perc>40</perc>
-		<drink-comment>Rum from Bunderberg</drink-comment>
+		<name>Bundaberg Rum</name>
+		<percentage>40</percentage>
+		<comment>Rum from Bunderberg</comment>
 	</drink>
 	<drink>
-		<drink-name>Whiskey</drink-name>
-		<perc>40</perc>
-		<drink-comment>
-		</drink-comment>
+		<name>Whiskey</name>
+		<percentage>40</percentage>
+		<comment>
+		</comment>
 	</drink>
 	<drink>
-		<drink-name>Scotch</drink-name>
-		<perc>40</perc>
-		<drink-comment>Nice drink, good on the rocks</drink-comment>
+		<name>Scotch</name>
+		<percentage>40</percentage>
+		<comment>Nice drink, good on the rocks</comment>
 	</drink>
 	<drink>
-		<drink-name>Triple Sec</drink-name>
-		<perc>15</perc>
-		<drink-comment> Triple sec, originally Curaçao triple sec, is a
+		<name>Triple Sec</name>
+		<percentage>15</percentage>
+		<comment> Triple sec, originally Curaçao triple sec, is a
 			variety of Curaçao liqueur, an orange-flavoured liqueur made from the
-			dried peels of bitter and sweet orange.</drink-comment>
+			dried peels of bitter and sweet orange.</comment>
 	</drink>
 
 	<drink>
-		<drink-name>Light Rum</drink-name>
-		<perc>40</perc>
-		<drink-comment>Light rum (also known as "silver" or "white" rum), is a
+		<name>Light Rum</name>
+		<percentage>40</percentage>
+		<comment>Light rum (also known as "silver" or "white" rum), is a
 			dry, light-bodied rum, light in color and lightly sweet in flavor. It
 			is produced from sugarcane juice and molasses, and normally has a
 			short aging period.
 			Unlike other various rums which are aged in charred oak casks, light rum is
 			simply aged in plain oak casks or stainless steel tanks, so it
 			remains clear.
-		</drink-comment>
+		</comment>
 	</drink>
 
 	<drink>
-		<drink-name>Gin</drink-name>
-		<perc>40</perc>
-		<drink-comment>Gin is a spirit which derives its predominant flavor
-			from juniper berries (Juniperus communis).</drink-comment>
+		<name>Gin</name>
+		<percentage>40</percentage>
+		<comment>Gin is a spirit which derives its predominant flavor
+			from juniper berries (Juniperus communis).</comment>
 	</drink>
 	<drink>
-		<drink-name>Vodka</drink-name>
-		<perc>40</perc>
-		<drink-comment>Vodka (Belarusian: Гарэлка, Polish: wódka, Russian:
+		<name>Vodka</name>
+		<percentage>40</percentage>
+		<comment>Vodka (Belarusian: Гарэлка, Polish: wódka, Russian:
 			водка ) is a distilled beverage. It is composed primarily of water
 			and ethanol with traces of impurities and flavorings. Vodka is made
 			by the distillation of fermented substances such as grains, potatoes,
 			or sometimes fruits and/or sugar.
-		</drink-comment>
+		</comment>
 	</drink>
 	<amount>15</amount>
 	<drink>
-		<drink-name>Tequila</drink-name>
-		<perc>40</perc>
-		<drink-comment>Tequila (Spanish pronunciation: [teˈkila]) is a spirit
+		<name>Tequila</name>
+		<percentage>40</percentage>
+		<comment>Tequila (Spanish pronunciation: [teˈkila]) is a spirit
 			made from the blue agave plant, primarily in the area surrounding the
 			city of Tequila, 65 kilometres (40 mi) northwest of Guadalajara, and
 			in the highlands (Los Altos) of the western Mexican state of Jalisco.
-		</drink-comment>
+		</comment>
 	</drink>
 
 	<drink>
-		<drink-name>Sour Mix</drink-name>
-		<perc>40</perc>
-		<drink-comment>Sour mix is a mixer used in many cocktails. It is made
+		<name>Sour Mix</name>
+		<percentage>40</percentage>
+		<comment>Sour mix is a mixer used in many cocktails. It is made
 			from approximately equal parts lemon and/or lime juice and simple
 			syrup and shaken vigorously with ice. This produces a pearly-white
 			liquid with a pronounced flavor.
-		</drink-comment>
+		</comment>
 	</drink>
 
 	<drink>
-		<drink-name>Coca Cola</drink-name>
-		<perc>0</perc>
-		<drink-comment>Coca-Cola is a carbonated soft drink sold in stores,
+		<name>Coca Cola</name>
+		<percentage>0</percentage>
+		<comment>Coca-Cola is a carbonated soft drink sold in stores,
 			restaurants, and vending machines in more than 200 countries.
-		</drink-comment>
+		</comment>
 	</drink>
 </drinks>

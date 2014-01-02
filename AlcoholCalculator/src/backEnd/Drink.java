@@ -3,15 +3,23 @@ package backEnd;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * Class for a Drink. Holds only a name, percentage and comment.
  * @author Brendon Body
  * @version 25 December 2011
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Drink {
-	private String drinkName;
-	private double drinkAlcoholPercentage;
+	private String name;
+	private double percentage;
 	private String comment;
+	
+	public Drink(){
+		this("",0.0);
+	}
 	
 	/**
 	 * Default Constructor.
@@ -19,9 +27,20 @@ public class Drink {
 	 * @param drinkAlcoholPercentage	Given drink Percentage
 	 */
 	public Drink(String drinkName, double drinkAlcoholPercentage){
-		this.drinkName = drinkName;
-		this.drinkAlcoholPercentage = drinkAlcoholPercentage;
+		this.name = drinkName;
+		this.percentage = drinkAlcoholPercentage;
 		comment = Const.defaultComment;
+	}
+	
+	/**
+	 * Default Constructor.
+	 * @param drinkName		Given drink name.
+	 * @param drinkAlcoholPercentage	Given drink Percentage
+	 */
+	public Drink(String drinkName, double drinkAlcoholPercentage, String comment){
+		this.name = drinkName;
+		this.percentage = drinkAlcoholPercentage;
+		this.comment = comment;
 	}
 	
 	/**
@@ -55,7 +74,7 @@ public class Drink {
 	 * @return	drinkName	Name of the drink
 	 */
 	public String getDrinkName() {
-		return drinkName;
+		return name;
 	}
 	
 	/**
@@ -63,7 +82,7 @@ public class Drink {
 	 * @param drinkName	The new drink name
 	 */
 	public void setDrinkName(String drinkName) {
-		this.drinkName = drinkName;
+		this.name = drinkName;
 	}
 
 	/**
@@ -71,7 +90,7 @@ public class Drink {
 	 * @return	drinkPercentage		The percent of alcohol
 	 */
 	public double getDrinkAlcoholPercentage() {
-		return drinkAlcoholPercentage;
+		return percentage;
 	}
 
 	/**
@@ -79,7 +98,7 @@ public class Drink {
 	 * @param drinkAlcoholPercentage	The drinks new alcohol percentage
 	 */
 	public void setDrinkAlcoholPercentage(double drinkAlcoholPercentage) {
-		this.drinkAlcoholPercentage = drinkAlcoholPercentage;
+		this.percentage = drinkAlcoholPercentage;
 	}
 	
 	/**
@@ -88,10 +107,10 @@ public class Drink {
 	 */
 	public String [] toStringArray(){
 		String s[] = new String[2];
-		s[0] = drinkName;
+		s[0] = name;
 		
 		NumberFormat formatter = new DecimalFormat(Const.numberFormat);
-		s[1] = formatter.format(drinkAlcoholPercentage);
+		s[1] = formatter.format(percentage);
 		return s;
 	}
 	

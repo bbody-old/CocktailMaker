@@ -1,90 +1,40 @@
 package fileIO;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import backEnd.Cocktail;
-import backEnd.Drink;
+import backEnd.Cocktails;
 
 public class LoadCocktails {
-	ArrayList<Cocktail> cocktails;
-	String fileName;
-	public LoadCocktails(ResourceBundle resourceBundle, String fileName){
-		this.fileName = fileName;
-		cocktails = new ArrayList<Cocktail>();
+	Cocktails cocktails;
+	String filename;
+	public LoadCocktails(ResourceBundle resourceBundle, String filename){
+		this.filename = filename;
+		cocktails = new Cocktails();
+		
+		this.filename = filename;
+		JAXBContext jaxbContext;
 		try {
-			 
-			File fXmlFile = new File(fileName);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-			doc.getDocumentElement().normalize();
-	 
-			//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-			NodeList nList = doc.getElementsByTagName(Const.element);
-			//System.out.println("-----------------------");
-	 
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-	 
-			   Node nNode = nList.item(temp);
-			   if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	 
-			      Element eElement = (Element) nNode;
-			      
-			      
-		         // System.out.println("Nick Name : " + getTagValue("nickname", eElement));
-			      //System.out.println("Salary : " + getTagValue("salary", eElement));
-			      String name = getTagValue(Const.cocktailName, eElement);
-			      //System.out.println(name);
-			      String comment = getTagValue(Const.comment, eElement);
-			      //System.out.println(comment);
-			      Cocktail c = new Cocktail(name);
-			      c.setComment(comment);
-			      //System.out.println(c.toString());
-			      NodeList dList = eElement.getElementsByTagName(Const.drinks);
-			      
-			     // System.out.println(name + "=" + dList.getLength());
-			      for (int j = 0; j < dList.getLength(); j++){
-			    	  Node dNode = dList.item(j);
-			    	  Element de = (Element) dNode;
-			    	  String amount = getTagValue(Const.amount, de);
-				      //System.out.println(drinkName + ":" + drinkPerc + ":" +  amount);
-			    	  //System.out.println(amount);
-			    	  
-			    	  //
-			    	  NodeList drinksList = de.getElementsByTagName(Const.drink);
-			    	  Node dnNode = drinksList.item(0);
-			    	  Element dElement = (Element) dnNode;
-			    	  String drinkName = getTagValue(Const.drinkName, dElement);
-			    	  String drinkPerc = getTagValue(Const.percentage, dElement);
-			    	  String drinkComment = getTagValue(Const.drinkComment, dElement);
-			    	  //Element aElement = (Element) dList;
-				      Drink d = new Drink(resourceBundle.getString("drinkDefaultName"));
-				      d.setDrinkName(drinkName);
-				      d.setDrinkAlcoholPercentage(Integer.parseInt(drinkPerc));
-				      d.setComment(drinkComment);
-				      //System.out.println("- " +d.getDrinkName());
-				      c.addDrink(Double.parseDouble(amount), d);
-				      //System.out.println(c.getSize());
-			      }
-			      
-			      
-			      cocktails.add(c);
-			   }
-			   
-			}
-		  } catch (Exception e) {
+			jaxbContext = JAXBContext.newInstance(Cocktails.class);
+			
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			cocktails = (Cocktails) jaxbUnmarshaller.unmarshal(new File(filename));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		  }
+		}
 	}
 	
 	private static String getTagValue(String sTag, Element eElement) {
@@ -107,7 +57,7 @@ public class LoadCocktails {
 	public String [] getStrings(){
 		String s[] = new String[cocktails.size()];
 		for (int i = 0; i < cocktails.size(); i++){
-			s[i] = cocktails.get(i).getCocktailName();
+			s[i] = cocktails.getCocktailName(i);
 		}
 		return s;
 	}
@@ -138,6 +88,18 @@ public class LoadCocktails {
 	}
 	
 	public void save(){
-		// TODO: Write everything back to file
+        try {
+        	JAXBContext jc = JAXBContext.newInstance(Cocktails.class);
+    		Marshaller marshaller = jc.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(cocktails, new FileOutputStream(this.filename));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

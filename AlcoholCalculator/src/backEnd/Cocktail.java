@@ -2,8 +2,14 @@ package backEnd;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Class for a Cocktail drink. Essentially adding extra context specific
@@ -11,21 +17,27 @@ import java.util.ResourceBundle;
  * @author Brendon Body
  * @version 25 December 2011
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Cocktail {
-	private String cocktailName;
-	private LinkedList<Drink> drinkList;
-	private LinkedList<Double> drinkVolumeList;
+	private String name;
 	private String comment;
+	
+	@XmlElement(name="storeddrinks")
+	private List<StoredDrink> storeddrinks;
+
+	public Cocktail(){
+		this.name = "";
+		storeddrinks = new ArrayList<StoredDrink>();
+		comment = Const.defaultComment;
+	}
 	
 	/**
 	 * The default constructor for the Cocktail class.
 	 * @param cocktailName	Name given to the cocktail.
 	 */
 	public Cocktail(String cocktailName){
-		this.cocktailName = cocktailName;
-		//drinks = new HashMap<Drink, Double>();
-		drinkList = new LinkedList<Drink>();
-		drinkVolumeList = new LinkedList<Double>();
+		this.name = cocktailName;
+		storeddrinks = new ArrayList<StoredDrink>();
 		comment = Const.defaultComment;
 	}
 	
@@ -34,7 +46,7 @@ public class Cocktail {
 	 * @return cocktailName		name of cocktail (String)
 	 */
 	public String getCocktailName() {
-		return cocktailName;
+		return name;
 	}
 	
 	/**
@@ -42,7 +54,7 @@ public class Cocktail {
 	 * @param cocktailName	new name for the Cocktail
 	 */
 	public void setCocktailName(String cocktailName) {
-		this.cocktailName = cocktailName;
+		this.name = cocktailName;
 	}
 	
 	/**
@@ -52,8 +64,8 @@ public class Cocktail {
 	 * @return index	Return index of where Drink d is (-1 if not in list)
 	 */
 	private int hasDrink(Drink d){
-		for (int i = 0; i < drinkList.size(); i++){
-			if (drinkList.get(i).equals(d)){
+		for (int i = 0; i < storeddrinks.size(); i++){
+			if (storeddrinks.get(i).drinkEquals(d)){
 				return i;
 			}
 		}
@@ -71,12 +83,9 @@ public class Cocktail {
 		int index = hasDrink(drink);
 		
 		if (index == -1){
-			drinkList.add(drink);
-			drinkVolumeList.add(volume);
+			storeddrinks.add(new StoredDrink(drink, volume));
 		} else {
-			drinkList.set(index, drink);
-			drinkVolumeList.set(index, 
-					drinkVolumeList.get(index) + volume);
+			storeddrinks.set(index, new StoredDrink(drink, storeddrinks.get(index).getVolume() + volume));
 		}
 	}
 	
@@ -85,8 +94,7 @@ public class Cocktail {
 	 * @param i		index of Drink to be removed
 	 */
 	public void removeDrink(int i){
-		drinkList.remove(i);
-		drinkVolumeList.remove(i);
+		storeddrinks.remove(i);
 	}
 	
 	/**
@@ -98,11 +106,11 @@ public class Cocktail {
 	private LinkedList<String[]> getStringList(){
 		LinkedList<String [] > listOfDrinks = new LinkedList<String[]>();
 		
-		for (int i = 0; i < drinkList.size(); i++){
+		for (int i = 0; i < storeddrinks.size(); i++){
 			String str[] = new String[3];
-			str[0] = drinkList.get(i).toStringArray()[0]; // Name
-			str[1] = drinkList.get(i).toStringArray()[1]; // Percentage
-			str[2] = drinkVolumeList.get(i).toString();	// Volume
+			str[0] = storeddrinks.get(i).getDrink().toStringArray()[0]; // Name
+			str[1] = storeddrinks.get(i).getDrink().toStringArray()[1]; // Percentage
+			str[2] = storeddrinks.get(i).getDrink().toString();	// Volume
 			listOfDrinks.add(str);
 		}
 		
@@ -148,13 +156,13 @@ public class Cocktail {
 		String str = Const.htmlOpen + 
 				resourceBundle.getString("nameLabel");
 		
-		str += cocktailName + Const.htmlBR;
+		str += name + Const.htmlBR;
 		
 		str += resourceBundle.getString("consists");
 		
 		str += Const.ulOpen;
-		for (int i = 0; i < drinkList.size(); i++){
-			str += Const.liOpen + drinkList.get(i).getDrinkName() +
+		for (int i = 0; i < storeddrinks.size(); i++){
+			str += Const.liOpen + storeddrinks.get(i).getDrink().getDrinkName() +
 					Const.liClose;
 		}
 		str += Const.ulClose;
@@ -181,22 +189,22 @@ public class Cocktail {
 		String str = //Const.htmlOpen + 
 				resourceBundle.getString("nameLabel");
 		
-		str += cocktailName + Const.newLine;// + Const.htmlBR;
+		str += name + Const.newLine;// + Const.htmlBR;
 		
 		str += resourceBundle.getString("consists") + Const.newLine;
 		
 		//str += Const.ulOpen;
 		DecimalFormat df = new DecimalFormat(Const.numberFormat);
-		for (int i = 0; i < drinkList.size(); i++){
-			df.format(drinkList.get(i).getDrinkAlcoholPercentage());
+		for (int i = 0; i < storeddrinks.size(); i++){
+			df.format(storeddrinks.get(i).getDrink().getDrinkAlcoholPercentage());
 			str += //Const.liOpen + 
-					drinkList.get(i).getDrinkName() + Const.tab2 +
+					storeddrinks.get(i).getDrink().getDrinkName() + Const.tab2 +
 					//Const.tab + 
-					drinkVolumeList.get(i).toString() + 
+					storeddrinks.get(i).getDrink().toString() + 
 					Const.volume + Const.tab2 +
 					// Const.tab +
 					Const.leftBracket + 
-					df.format(drinkList.get(i).getDrinkAlcoholPercentage()).toString() + Const.rightBracket
+					df.format(storeddrinks.get(i).getDrink().getDrinkAlcoholPercentage()).toString() + Const.rightBracket
 					//+ Const.liClose
 					+ Const.newLine;
 		}
@@ -224,18 +232,18 @@ public class Cocktail {
 		String str = Const.htmlOpen + 
 				resourceBundle.getString("nameLabel");
 		
-		str += cocktailName + Const.htmlBR;
+		str += name + Const.htmlBR;
 		
 		str += resourceBundle.getString("consists");
 		
 		str += Const.ulOpen;
 		DecimalFormat df = new DecimalFormat(Const.numberFormat);
-		for (int i = 0; i < drinkList.size(); i++){
-			df.format(drinkList.get(i).getDrinkAlcoholPercentage());
-			str += Const.liOpen + drinkList.get(i).getDrinkName() +
-					Const.tab + drinkVolumeList.get(i).toString() + 
+		for (int i = 0; i < storeddrinks.size(); i++){
+			df.format(storeddrinks.get(i).getDrink().getDrinkAlcoholPercentage());
+			str += Const.liOpen + storeddrinks.get(i).getDrink().getDrinkName() +
+					Const.tab + storeddrinks.get(i).getDrink().toString() + 
 					Const.volume + Const.tab + Const.leftBracket + 
-					df.format(drinkList.get(i).getDrinkAlcoholPercentage()).toString() + Const.rightBracket
+					df.format(storeddrinks.get(i).getDrink().getDrinkAlcoholPercentage()).toString() + Const.rightBracket
 					+ Const.liClose;
 		}
 		str += Const.ulClose;
@@ -275,7 +283,7 @@ public class Cocktail {
 	 * @return int	How many drinks in the Cocktail.
 	 */
 	public int getSize(){
-		return drinkList.size();
+		return storeddrinks.size();
 	}
 	
 	/**
@@ -288,11 +296,11 @@ public class Cocktail {
 		Double alcoholicVolume = new Double(0.0);
 		
 		// Add up drink volume and drink percentages to get total percentage
-		for (int i = 0; i < drinkList.size(); i++){
-			alcoholicVolume += (drinkVolumeList.get(i) 
-			* drinkList.get(i).getDrinkAlcoholPercentage()) / 100.0;
+		for (int i = 0; i < storeddrinks.size(); i++){
+			alcoholicVolume += (storeddrinks.get(i).getVolume() 
+			* storeddrinks.get(i).getDrink().getDrinkAlcoholPercentage()) / 100.0;
 			
-			totalVolume += drinkVolumeList.get(i);
+			totalVolume += storeddrinks.get(i).getVolume();
 		}
 		
 		return (alcoholicVolume / totalVolume) * Const.percConst;
@@ -306,7 +314,7 @@ public class Cocktail {
 	 * @return Drink
 	 */
 	public Drink getDrink(int i){
-		return drinkList.get(i);
+		return storeddrinks.get(i).getDrink();
 	}
 	
 	/**
@@ -316,7 +324,7 @@ public class Cocktail {
 	 * @return double volume of drink
 	 */
 	public double getVolume(int i){
-		return drinkVolumeList.get(i);
+		return storeddrinks.get(i).getVolume();
 	}
 
 	/**
@@ -324,11 +332,10 @@ public class Cocktail {
 	 * 
 	 * @param i 	index value
 	 * @param drink		New Drink
-	 * @param doubleValue 	Volume of the drink
+	 * @param doubleValuen 	Volume of the drink
 	 */
 	public void setDrink(int i, Drink drink, double volume) {
-		drinkList.set(i, drink);
-		drinkVolumeList.set(i, volume);
+		storeddrinks.set(i, new StoredDrink(drink, volume));
 	}
 	
 	/**
@@ -356,7 +363,7 @@ public class Cocktail {
 	 * 
 	 */
 	public void reset() {
-		cocktailName = "";
+		name = "";
 		comment = "";
 		resetDrinks();
 	}
@@ -366,8 +373,7 @@ public class Cocktail {
 	 * 
 	 */
 	public void resetDrinks() {
-		drinkList = new LinkedList<Drink>();
-		drinkVolumeList = new LinkedList<Double>();
+		storeddrinks = new ArrayList<StoredDrink>();
 	}
 
 }

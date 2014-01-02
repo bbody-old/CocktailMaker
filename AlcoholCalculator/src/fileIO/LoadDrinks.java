@@ -1,22 +1,40 @@
 package fileIO;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import backEnd.Drink;
+import backEnd.Drinks;
+
 
 public class LoadDrinks {
-	ArrayList<Drink> drinks;
-	public LoadDrinks(ResourceBundle resourceBundle, String fileName){
+	Drinks drinks;
+	String filename;
+	public LoadDrinks(ResourceBundle resourceBundle, String filename){
+		this.filename = filename;
+		JAXBContext jaxbContext;
+		try {
+			jaxbContext = JAXBContext.newInstance(Drinks.class);
+			
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			drinks = (Drinks) jaxbUnmarshaller.unmarshal(new File(filename));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//this.save();
+
 		/*
 		drinks = new Drink[6];
 		drinks[0] = new Drink("Frog");
@@ -26,6 +44,7 @@ public class LoadDrinks {
 		drinks[4] = new Drink("Baijiu");
 		drinks[5] = new Drink("White wine");
 		*/
+		/*
 		drinks = new ArrayList<Drink>();
 		try {
 			 
@@ -62,7 +81,7 @@ public class LoadDrinks {
 		  } catch (Exception e) {
 			e.printStackTrace();
 		  }
-
+		*/
 	}
 	
 	private static String getTagValue(String sTag, Element eElement) {
@@ -133,5 +152,21 @@ public class LoadDrinks {
 	
 	public int getSize(){
 		return drinks.size();
+	}
+	
+	public void save(){
+		// Unused
+        try {
+        	JAXBContext jc = JAXBContext.newInstance(Drinks.class);
+    		Marshaller marshaller = jc.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(drinks, new FileOutputStream(this.filename));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
