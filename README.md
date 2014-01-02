@@ -8,10 +8,10 @@ Implemented features
 - Read XML Cocktails
 - Read XML Drinks
 - GUI
+- Multi-lingual support (English, Chinese (Simplified) and Chinese (Traditional))
+- Config files
+- Write XML
 
 ## Future Features
-- Write XML
 - Database for Drinks and Cocktails
 - Searching for Cocktails based upon available ingredients
-- Multi-lingual support (English, Chinese (Simplified), Chinese (Traditional) and Korean)
-- Config files
