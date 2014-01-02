@@ -15,3 +15,12 @@ Implemented features
 ## Future Features
 - Database for Drinks and Cocktails
 - Searching for Cocktails based upon available ingredients
+
+## How to build
+1. Clone to computer
+2. Import into Eclipse
+3. Install [WindowsBuilder](http://www.eclipse.org/windowbuilder/) into Eclipse
+4. Run project
+
+## Excecutable
+Can be found [here](https://www.dropbox.com/s/bq2gyseu5vimq3e/Cocktail%20Maker.zip).
