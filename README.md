@@ -1,8 +1,7 @@
 # CocktailMaker
 ## Description
 Cocktail Calculator is a program which holds recipes for different cocktails and presents them in a manor which allows easy viewing and modifying of entries.
-Also see.
-http://www.brendonbody.com/?p=91
+
 ## Road Map
 Implemented features
 - Read XML Cocktails
@@ -21,6 +20,3 @@ Implemented features
 2. Import into Eclipse
 3. Install [WindowsBuilder](http://www.eclipse.org/windowbuilder/) into Eclipse
 4. Run project
-
-## Excecutable
-Can be found [here](https://www.dropbox.com/s/bq2gyseu5vimq3e/Cocktail%20Maker.zip).
