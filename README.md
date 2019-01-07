@@ -1,7 +1,6 @@
 # CocktailMaker
 
-
-![screenshot](https://s3-ap-southeast-2.amazonaws.com/bbody-images/github/CocktailMaker/screenshot.png "Screenshot")
+![screenshot](https://raw.githubusercontent.com/bbody/CocktailMaker/master/screenshots/preview.png "Screenshot")
 
 ## Description
 Cocktail Calculator is a program which holds recipes for different cocktails and presents them in a manor which allows easy viewing and modifying of entries.
@@ -26,4 +25,4 @@ Implemented features
 4. Install [WindowsBuilder](http://www.eclipse.org/windowbuilder/) into Eclipse
 5. Run project
 
-![full screenshot](https://s3-ap-southeast-2.amazonaws.com/bbody-images/github/CocktailMaker/screenshot-full.png "Full Screenshot")
+![full screenshot](https://raw.githubusercontent.com/bbody/CocktailMaker/master/screenshots/all_screens.png "Full Screenshot")
